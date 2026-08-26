@@ -265,7 +265,7 @@ ${formData.addons.length > 0 ? `*תוספות:* ${formData.addons.join(', ')}` :
                 {/* Instant WhatsApp alternative */}
                 <div className="mt-4 text-center">
                   <a
-                    href={`https://wa.me/972500000000?text=${getWhatsAppMessage()}`}
+                    href={`https://wa.me/972522957958?text=${getWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#18281e] hover:text-[#25D366] transition-colors py-1 px-3"
@@ -294,7 +294,7 @@ ${formData.addons.length > 0 ? `*תוספות:* ${formData.addons.join(', ')}` :
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
-                    href={`https://wa.me/972500000000?text=${getWhatsAppMessage()}`}
+                    href={`https://wa.me/972522957958?text=${getWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#25D366] text-white px-6 py-3 rounded-lg font-sans-luxury text-sm font-semibold hover:bg-[#20b858] transition-colors flex items-center justify-center gap-2"

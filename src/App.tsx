@@ -110,7 +110,7 @@ export default function App() {
 
       {/* Floating WhatsApp Action Button */}
       <a
-        href="https://wa.me/972500000000?text=שלום%2C%20הגעתי%20דרך%20אתר%20הגג%20הסודי%20ואשמח%20לפרטים"
+        href="https://wa.me/972522957958?text=שלום%2C%20הגעתי%20דרך%20אתר%20הגג%20הסודי%20ואשמח%20לפרטים"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="צ'אט בוואטסאפ"

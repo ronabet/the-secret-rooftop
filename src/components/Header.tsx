@@ -85,22 +85,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
           <div className="flex items-center gap-2 sm:gap-3.5">
             {/* Direct Phone / Contact quick action */}
             <a
-              href="tel:0500000000"
+              href="tel:0522957958"
               className="hidden sm:flex items-center gap-1.5 text-xs text-[#18281e] hover:text-[#924a29] transition-colors py-1.5 px-3 rounded border border-[#18281e]/15 font-sans-luxury"
             >
               <Phone className="w-3.5 h-3.5 text-[#924a29]" />
-              <span className="font-semibold">050-0000000</span>
+              <span className="font-semibold">052-295-7958</span>
             </a>
-
-            {/* Menu Button */}
-            <button
-              id="header-menu-btn"
-              onClick={onOpenMenu}
-              className="bg-[#ccb474] hover:bg-[#bba468] active:scale-95 transition-all text-[#18281e] font-sans-luxury font-semibold px-4 sm:px-6 py-2 text-xs sm:text-sm uppercase tracking-wider rounded-sm shadow-sm cursor-pointer flex items-center gap-1.5"
-            >
-              <Utensils className="w-3.5 h-3.5 hidden sm:inline" />
-              <span>תפריטים</span>
-            </button>
 
             <div className="w-px h-6 bg-black/20 mx-0.5 hidden md:block"></div>
 
@@ -215,7 +205,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                 </button>
 
                 <a
-                  href="https://wa.me/972500000000?text=שלום%2C%20אשמח%20לקבל%20פרטים%20על%20אירוע%20בגג%20הסודי"
+                  href="https://wa.me/972522957958?text=שלום%2C%20אשמח%20לקבל%20פרטים%20על%20אירוע%20בגג%20הסודי"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full bg-[#25D366]/15 text-[#18281e] hover:bg-[#25D366]/25 border border-[#25D366]/30 py-3 rounded-lg font-sans-luxury font-medium text-xs sm:text-sm transition-colors flex items-center justify-center gap-2"
