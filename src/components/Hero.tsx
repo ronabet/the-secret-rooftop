@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToVenue }) => {
       className="relative w-full flex flex-col items-center justify-between bg-black overflow-hidden select-none
         h-[calc(100svh-var(--site-top-chrome,6.75rem))] max-h-[calc(100svh-var(--site-top-chrome,6.75rem))]
         md:max-h-[880px]
-        pt-4 pb-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:pt-6 md:pb-6"
+        pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pt-6 md:pb-6"
     >
       {/* Background Images with Cross-Fade */}
       <div className="absolute inset-0 z-0">
