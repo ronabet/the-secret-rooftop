@@ -4,6 +4,7 @@
   :root {
     --font-serif: 'Libre Caslon Text', 'Frank Ruhl Libre', 'Playfair Display', serif;
     --font-sans: 'Assistant', 'Be Vietnam Pro', sans-serif;
+    --site-top-chrome: 6.75rem;
   }
 
   body {

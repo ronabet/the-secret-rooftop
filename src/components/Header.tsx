@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, MessageCircle, MapPin, Calendar, Utensils, Heart, Sparkles, Clock } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
@@ -11,6 +11,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +24,31 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Expose top chrome height so the hero can fill the remaining first screen exactly
+  useEffect(() => {
+    const banner = bannerRef.current;
+    const header = headerRef.current;
+    if (!banner || !header) return;
+
+    const updateChromeHeight = () => {
+      // Avoid measuring the condensed scrolled header — that would resize the hero mid-scroll
+      if (window.scrollY > 20) return;
+      const height = Math.ceil(banner.offsetHeight + header.offsetHeight);
+      document.documentElement.style.setProperty('--site-top-chrome', `${height}px`);
+    };
+
+    updateChromeHeight();
+    const observer = new ResizeObserver(updateChromeHeight);
+    observer.observe(banner);
+    observer.observe(header);
+    window.addEventListener('resize', updateChromeHeight);
+    void document.fonts?.ready.then(updateChromeHeight);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateChromeHeight);
+    };
   }, []);
 
   const navLinks = [
@@ -44,7 +71,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-[#3b2314] text-[#fdf9f4] text-center py-2 px-4 text-xs sm:text-sm font-sans-luxury tracking-wide flex items-center justify-center gap-2 border-b border-[#fea279]/20 relative z-50">
+      <div
+        ref={bannerRef}
+        className="bg-[#3b2314] text-[#fdf9f4] text-center py-2 px-4 text-xs sm:text-sm font-sans-luxury tracking-wide flex items-center justify-center gap-2 border-b border-[#fea279]/20 relative z-50"
+      >
         <span className="w-2 h-2 rounded-full bg-[#fea279] animate-warm-pulse hidden sm:inline-block"></span>
         <span>הבית לאירועים שלכם - מחכים לכם ברופטופ!</span>
         <span className="text-[#fea279] text-xs font-semibold px-2 py-0.5 rounded bg-black/30 border border-[#fea279]/30">אשדוד</span>
@@ -52,6 +82,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
 
       {/* Main Header */}
       <header
+        ref={headerRef}
         className={`w-full sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
             ? 'bg-[#fdf9f4]/95 backdrop-blur-md shadow-md py-2.5 border-b border-[#18281e]/10'
