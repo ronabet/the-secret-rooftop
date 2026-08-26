@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({
       {/* Social / Contact Quick Badges */}
       <div className="flex items-center gap-4 text-[#18281e]/80">
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/thesecret.rooftop/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"

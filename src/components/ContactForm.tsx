@@ -81,11 +81,16 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
     const whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${getWhatsAppMessage()}`;
 
     // Opening has to happen in the same tick as the click, otherwise it counts as a blocked popup.
-    if (!window.open(whatsappUrl, '_blank', 'noopener,noreferrer')) {
+    // Passing "noopener" here would make window.open always return null, which would make the
+    // fallback below run on success and send this tab to WhatsApp as well.
+    const whatsappTab = window.open(whatsappUrl, '_blank');
+
+    if (!whatsappTab) {
       window.location.href = whatsappUrl;
       return;
     }
 
+    whatsappTab.opener = null;
     setIsSuccess(true);
   };
 
