@@ -1,41 +1,63 @@
 import { EventType, MenuCategory, GalleryImage, FaqItem } from '../types';
 
+import rooftopSunsetStage from '../assets/images/rooftop-sunset-stage.jpg';
+import rooftopLoungeSeating from '../assets/images/rooftop-lounge-seating.jpg';
+import rooftopStageLanterns from '../assets/images/rooftop-stage-lanterns.jpg';
+import rooftopSignage from '../assets/images/rooftop-signage.jpg';
+import rooftopFlowerBarrel from '../assets/images/rooftop-flower-barrel.jpg';
+import barVanDay from '../assets/images/bar-van-day.jpg';
+import barVanEvening from '../assets/images/bar-van-evening.jpg';
+import djBooth from '../assets/images/dj-booth.jpg';
+import tableSkylineSunset from '../assets/images/table-skyline-sunset.jpg';
+import tableStringLights from '../assets/images/table-string-lights.jpg';
+import tableLoungeCushions from '../assets/images/table-lounge-cushions.jpg';
+import cheeseBoard from '../assets/images/cheese-board.jpg';
+import wineCheeseBar from '../assets/images/wine-cheese-bar.jpg';
+import pizzaSlice from '../assets/images/pizza-slice.jpg';
+
+export const VENUE_IMAGES = {
+  hero: rooftopSunsetStage,
+  experience: rooftopLoungeSeating,
+  proposal: tableSkylineSunset,
+  boutique: rooftopFlowerBarrel,
+  corporate: rooftopStageLanterns,
+  cheesePlatter: cheeseBoard,
+  cocktail: wineCheeseBar,
+  signage: rooftopSignage,
+  barVanDay,
+  barVanEvening,
+  djBooth,
+  tableStringLights,
+  tableLoungeCushions,
+  pizzaSlice,
+};
+
 export const HERO_SLIDES = [
   {
     id: 'hero-1',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQXXUaSrQGYkUU5Ksb5jxbk5Pwz9o8GQ15o4CJw-nkhuSmWBuxR3pH0fEeL3VDiGtu6WKTk-bSj941TcQ0v25H9x7v9rESBGBArhAOVw4pMOtByJQU5_fQZJTXrx6-LHlK_K5P3DEqH59Ciynd1HrHPihaL-FvZXpvtLbgUDJZEOm_UZ8QQkbuiQDJkYmqp697Kb5T8MkEzM_NeMckSDxYSMnJUUxVQnNFbg93owohd_Jhm4yszCtjelSrjivWYifngQ',
+    image: rooftopSunsetStage,
     title: 'THE SECRET ROOFTOP',
     subtitle: 'שקיעות קסומות, נוף פתוח 360° אל העיר ואירועי בוטיק בלתי נשכחים בלב אשדוד',
   },
   {
     id: 'hero-2',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCIMjwLXJH6TnHP20eQenlZtIzGdI6hs9kzkME_qP6Rcl0e3InWA2yyoV4gdGK_KhdHL6DG5Ryb2gpPBC5BD7zdX9DvcFev-Y9iHWux9VkIFBOwBquggzDrjLMeOqVQslrDBeuhOClx2LRRfWJfxNIgmFjswSGZCqQ6txCm16C48MMKiNT_z5FfBkDfPxRXCS8d-gVKvfMDLcAXbD0Uel_xYvWZPrd2UqCMhBjCp4YGPsAPYshGuTXW',
+    image: rooftopLoungeSeating,
     title: 'BOHEMIAN LUXURY',
     subtitle: '600 מ״ר של עץ טבעי, צמחייה עשירה ועיצוב שעת הזהב (Golden Hour)',
   },
   {
     id: 'hero-3',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_9wruuSnOpGB7EBC5NNeb7paGI9KY-CxQtjVYJ169qSMemxMVj45-R7d9M4V2tXXUyOgPACE3WMWO5olJo0Fjj7IYTfPEaQB3vS8M5h_5Jlgq8Vt-AAEBo6d02o4bPJ988SdijlNZh4T_Atx3JitmxKG6i7agx44Q8lcnzRoR_Vst0ahj0zJzj4DhWfLoPbf2CDOfW9ysDaFVT5WHGqpL-B7kdJVlFQzWXrmFUaGn2VwDogKchWCWZlz6ebIqRw2cfA',
+    image: tableSkylineSunset,
     title: 'MARRIAGE PROPOSALS',
     subtitle: 'הרגע המרגש ביותר בחיים שלכם מעוצב ומתוכנן עד הפרט האחרון',
   },
   {
     id: 'hero-4',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDm6EciXmcugkIuqxx24MyujFA399kvK2sOhzJEPuoyY5i_s8TrJdkSvMN5Plg0LZSwvPgdtZUOwx-FKFKUAUhLnW6MnuvFvfXsrfLrkQ3m1EGcPUiJu2N59L_eJGI3jGM9CwpJHTTVlyKjvEyhEnHRDTtmPDqfIPomVkWKhTWxDplRhUk6Ww4sMjtqWcALk0lX2Zs8RUNMYoYHxpJ3Aucgj-EYD6Dy0mW_0QRtJ29tx1mJMlX_p4tO',
+    image: barVanEvening,
     title: 'EXCLUSIVE GATHERINGS',
     subtitle: 'ערבי קוקטייל והרמות כוסית באווירה אינטימית ויוקרתית',
   }
 ];
-
-export const VENUE_IMAGES = {
-  hero: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQXXUaSrQGYkUU5Ksb5jxbk5Pwz9o8GQ15o4CJw-nkhuSmWBuxR3pH0fEeL3VDiGtu6WKTk-bSj941TcQ0v25H9x7v9rESBGBArhAOVw4pMOtByJQU5_fQZJTXrx6-LHlK_K5P3DEqH59Ciynd1HrHPihaL-FvZXpvtLbgUDJZEOm_UZ8QQkbuiQDJkYmqp697Kb5T8MkEzM_NeMckSDxYSMnJUUxVQnNFbg93owohd_Jhm4yszCtjelSrjivWYifngQ',
-  experience: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCIMjwLXJH6TnHP20eQenlZtIzGdI6hs9kzkME_qP6Rcl0e3InWA2yyoV4gdGK_KhdHL6DG5Ryb2gpPBC5BD7zdX9DvcFev-Y9iHWux9VkIFBOwBquggzDrjLMeOqVQslrDBeuhOClx2LRRfWJfxNIgmFjswSGZCqQ6txCm16C48MMKiNT_z5FfBkDfPxRXCS8d-gVKvfMDLcAXbD0Uel_xYvWZPrd2UqCMhBjCp4YGPsAPYshGuTXW',
-  proposal: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_9wruuSnOpGB7EBC5NNeb7paGI9KY-CxQtjVYJ169qSMemxMVj45-R7d9M4V2tXXUyOgPACE3WMWO5olJo0Fjj7IYTfPEaQB3vS8M5h_5Jlgq8Vt-AAEBo6d02o4bPJ988SdijlNZh4T_Atx3JitmxKG6i7agx44Q8lcnzRoR_Vst0ahj0zJzj4DhWfLoPbf2CDOfW9ysDaFVT5WHGqpL-B7kdJVlFQzWXrmFUaGn2VwDogKchWCWZlz6ebIqRw2cfA',
-  boutique: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZH0GIUZFWkFZt3IBJGg_-TCqT44ADM8oRhgy1SlCfV0EvBKy2WE9bjFB9vF3YQsGrQwZKd4WQ82nxQ--6FIZCrqqLgly0okbzU0JXdIjfsImENE8sQ8GTbHLBvn-TPHePFOiXR2fyJmdaowvprGEkauzfxym_ot1wzhxtucZtfxhViOPT6If5l6E9JMoMpDLvRvL-Z1qLS9QL27f-DcWOLWM49PL1nd9vMTmH4QQAMfF0aFSKrF-c',
-  corporate: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDm6EciXmcugkIuqxx24MyujFA399kvK2sOhzJEPuoyY5i_s8TrJdkSvMN5Plg0LZSwvPgdtZUOwx-FKFKUAUhLnW6MnuvFvfXsrfLrkQ3m1EGcPUiJu2N59L_eJGI3jGM9CwpJHTTVlyKjvEyhEnHRDTtmPDqfIPomVkWKhTWxDplRhUk6Ww4sMjtqWcALk0lX2Zs8RUNMYoYHxpJ3Aucgj-EYD6Dy0mW_0QRtJ29tx1mJMlX_p4tO',
-  cheesePlatter: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3Rnn1qpk-2oNVaiJHm1dxB9eO9NjxuwVECFM0sIYVb9bYVFWmI8lMrPtEdacFUQEdLbT6XXbnkOzwpX2TeR0aGFE-VwInupzpb4_S9NO0jNaaDPzdbIWHVlHAmafD1JBCXsKTW2rXEG7sfDfNaEcUyBTF6qsWBILXVXsfA3wWyCUljs5hgP1VC_fo4XUkCWiH2PHj-zVOA1H_gRt_xbTDFLO8Tqb3tErnj05lVZtppzzyAjtlPMqR',
-  cocktail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHHNC2rNajBDpEuB3HEDj6xMVVnjXxGihwQzBDfomz66HjBsK6816RxQTpyhHemH2gpNQGTdghkYeBMB5m7u4xCd4Dg1hA-ONSoSFEB0YHTbM--k7xLBXp_DmYMpxHXnEB1lO_rhje4lnJ6H-kP29sE6SoJ-zCf5Cx35IZ62PR7MfroCS1Ymrkp2xeLxng7nIGPwx_2d9DXxZxvzK84u2v0OHu02VVsNMCtr7munSKlV63RfvRNCGg',
-};
 
 export const EVENT_TYPES: EventType[] = [
   {
@@ -220,49 +242,98 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     url: VENUE_IMAGES.hero,
     title: 'הגג בשעת השקיעה',
     category: 'sunset',
-    description: 'מבט 360° על מתחם הדק מעץ, התאורה הרכה וקו הרקיע של העיר',
+    description: 'המתחם הפתוח עם הבמה, שולחנות העץ ותאורת המחרוזות מול קו הרקיע של העיר',
   },
   {
     id: 'g-2',
     url: VENUE_IMAGES.experience,
     title: 'פינות ישיבה בוהו-שיק',
     category: 'events',
-    description: 'ריהוט קלוע, כריות נוי רכות, צמחייה עשירה וגרילנדות זוהרות',
+    description: 'שולחנות עץ עם כריות רכות, עציצי פאלמה וגרילנדות זוהרות',
   },
   {
     id: 'g-3',
     url: VENUE_IMAGES.proposal,
-    title: 'עיצוב הצעת נישואין',
+    title: 'שולחן זוגי מול השקיעה',
     category: 'proposals',
-    description: 'שער פרחים לבן ומואר, נרות רומנטיים ואווירה בלתי נשכחת',
+    description: 'שולחן ערוך ליין וגבינות עם תאורה חמה ונוף פתוח אל העיר',
   },
   {
     id: 'g-4',
     url: VENUE_IMAGES.boutique,
-    title: 'שולחן אירוע בוטיק מעוצב',
-    category: 'events',
-    description: 'סידורי פרחים עדינים, מפיות פשתן ונוף מרהיב אל העיר',
+    title: 'הפרטים הקטנים של הגג',
+    category: 'sunset',
+    description: 'עציצי פרחים ממותגים, תאורה חמה ומרחב פתוח לאירועי בוטיק',
   },
   {
     id: 'g-5',
     url: VENUE_IMAGES.corporate,
-    title: 'אירוע חברה ומינגלינג',
+    title: 'הבמה והמערכת',
     category: 'events',
-    description: 'הרמת כוסית אלגנטית תחת שמי הלילה של אשדוד',
+    description: 'במת עץ עם הגברה, פנסי ראטן ותאורה רכה - מוכנה לנאומים ולמסיבה',
   },
   {
     id: 'g-6',
-    url: VENUE_IMAGES.cheesePlatter,
-    title: 'אירוח קולינרי מוקפד',
-    category: 'culinary',
-    description: 'מגש גבינות בוטיק, תאנים טריות וקרקרים ביתיים',
+    url: VENUE_IMAGES.signage,
+    title: 'הכניסה לגג הסודי',
+    category: 'sunset',
+    description: 'שלט המתחם על קיר הבמבוק, בין צמחייה טרופית ותאורת מחרוזות',
   },
   {
     id: 'g-7',
-    url: VENUE_IMAGES.cocktail,
-    title: 'קוקטייל פרימיום',
+    url: VENUE_IMAGES.barVanEvening,
+    title: 'בר הוואן',
+    category: 'events',
+    description: 'ואן פולקסווגן וינטג׳ שהוסב לבר מלא, מואר בשעת בין הערביים',
+  },
+  {
+    id: 'g-8',
+    url: VENUE_IMAGES.barVanDay,
+    title: 'הבר תחת הצללית',
+    category: 'events',
+    description: 'אזור הבר המקורה עם עמדות הגשה, צמחייה ותאורת מחרוזות',
+  },
+  {
+    id: 'g-9',
+    url: VENUE_IMAGES.djBooth,
+    title: 'עמדת הדיג׳יי',
+    category: 'events',
+    description: 'עמדת מיקס בחלון הוואן - מוזיקה חיה לאורך כל הערב',
+  },
+  {
+    id: 'g-10',
+    url: VENUE_IMAGES.cheesePlatter,
+    title: 'מגש הגבינות של הגג',
     category: 'culinary',
-    description: 'משקאות מיקסולוגיה ייחודיים בכוסות קריסטל',
+    description: 'מבחר גבינות, אגוזים ופירות העונה מוגשים על מגש עץ',
+  },
+  {
+    id: 'g-11',
+    url: VENUE_IMAGES.cocktail,
+    title: 'כוס יין על הבר',
+    category: 'culinary',
+    description: 'יין אדום לצד מגש גבינות בפינת הבר של המתחם',
+  },
+  {
+    id: 'g-12',
+    url: VENUE_IMAGES.tableStringLights,
+    title: 'ערב על הגג',
+    category: 'proposals',
+    description: 'פיצה טאבון, מגש גבינות ויין על שולחן עץ תחת תאורת מחרוזות',
+  },
+  {
+    id: 'g-13',
+    url: VENUE_IMAGES.tableLoungeCushions,
+    title: 'שולחן חברים',
+    category: 'events',
+    description: 'שולחן ערוך לקבוצה עם כריות ישיבה צבעוניות ואווירה חופשית',
+  },
+  {
+    id: 'g-14',
+    url: VENUE_IMAGES.pizzaSlice,
+    title: 'פיצה חמה מהתנור',
+    category: 'culinary',
+    description: 'משולש פיצה נמתח עם גבינה נמסה, זיתים ובצל סגול',
   }
 ];
 

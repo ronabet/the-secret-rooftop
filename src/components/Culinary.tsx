@@ -101,7 +101,7 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
                   <div className="relative rounded-xl overflow-hidden shadow-md group">
                     <img
                       src={VENUE_IMAGES.cheesePlatter}
-                      alt="פלטת גבינות בוטיק"
+                      alt="מגש גבינות של הגג הסודי"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
@@ -116,14 +116,14 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
                   <div className="relative rounded-xl overflow-hidden shadow-md group">
                     <img
                       src={VENUE_IMAGES.cocktail}
-                      alt="קוקטייל פרימיום מול השקיעה"
+                      alt="כוס יין על הבר של הגג הסודי"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>
                   <p className="text-[11px] text-[#434844] text-right font-sans-luxury font-light">
-                    מיקסולוגיה: קוקטייל Golden Hour Spritz
+                    בר מלא: יינות, קוקטיילים ומשקאות מול השקיעה
                   </p>
                 </div>
               </div>

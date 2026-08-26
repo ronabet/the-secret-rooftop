@@ -100,7 +100,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             {/* Subtle Gold/Tertiary accent border overlay */}
             <div className="absolute inset-0 border border-[#322206]/35 rounded-xl pointer-events-none" />
             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg text-white text-xs font-sans-luxury border border-white/20">
-              מתחם הלאונג׳ והדק הטבעי בשעת השקיעה
+              פינות הישיבה, הצמחייה ותאורת המחרוזות במתחם הפתוח
             </div>
           </motion.div>
         </div>

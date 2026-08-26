@@ -81,7 +81,7 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+                transition={{ duration: 0.4, delay: Math.min(index, 6) * 0.05 }}
                 onClick={() => onImageClick(image)}
                 className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 bg-[#18281e] border border-[#322206]/15"
               >
