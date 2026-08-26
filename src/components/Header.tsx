@@ -46,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
       {/* Top Banner */}
       <div className="bg-[#3b2314] text-[#fdf9f4] text-center py-2 px-4 text-xs sm:text-sm font-sans-luxury tracking-wide flex items-center justify-center gap-2 border-b border-[#fea279]/20 relative z-50">
         <span className="w-2 h-2 rounded-full bg-[#fea279] animate-warm-pulse hidden sm:inline-block"></span>
-        <span>חוויית קוקטיילים ייחודית עם נוף פנורמי - מחכים לכם ברופטופ!</span>
+        <span>הבית לאירועים שלכם - מחכים לכם ברופטופ!</span>
         <span className="text-[#fea279] text-xs font-semibold px-2 py-0.5 rounded bg-black/30 border border-[#fea279]/30">אשדוד</span>
       </div>
 
