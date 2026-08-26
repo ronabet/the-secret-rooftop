@@ -7,6 +7,18 @@ interface ContactFormProps {
   preselectedEventType?: string;
 }
 
+const OWNER_WHATSAPP = '972522957958';
+
+// The select stores option values, and EventDetailModal preselects EVENT_TYPES ids,
+// so both spellings have to resolve to something the venue owner can read.
+const EVENT_TYPE_LABELS: Record<string, string> = {
+  proposal: 'הצעת נישואין (זוגי / אינטימי)',
+  private: 'אירוע בוטיק / יום הולדת / ברית',
+  boutique: 'אירוע בוטיק / יום הולדת / ברית',
+  corporate: 'אירוע חברה / השקה / הרמת כוסית',
+  other: 'אירוע אחר / התאמה מיוחדת',
+};
+
 export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }) => {
   const [formData, setFormData] = useState<BookingFormData>({
     fullName: '',
@@ -18,7 +30,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
     notes: '',
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -40,6 +51,26 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
     }));
   };
 
+  const getWhatsAppMessage = () => {
+    const lines = [
+      'היי, אני מעוניין/ת בפרטים על הגג הסודי:',
+      `*שם:* ${formData.fullName || 'לא צוין'}`,
+      `*טלפון:* ${formData.phone || 'לא צוין'}`,
+      `*סוג אירוע:* ${EVENT_TYPE_LABELS[formData.eventType] || 'כללי'}`,
+      `*תאריך משוער:* ${formData.estimatedDate || 'גמיש'}`,
+      `*כמות מוזמנים:* ${formData.guestCount}`,
+    ];
+
+    if (formData.addons.length > 0) {
+      lines.push(`*תוספות:* ${formData.addons.join(', ')}`);
+    }
+    if (formData.notes.trim()) {
+      lines.push(`*הערות:* ${formData.notes.trim()}`);
+    }
+
+    return encodeURIComponent(lines.join('\n'));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone) {
@@ -47,22 +78,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
       return;
     }
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 900);
-  };
+    const whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${getWhatsAppMessage()}`;
 
-  const getWhatsAppMessage = () => {
-    const text = `היי, אני מעוניין/ת בפרטים על הגג הסודי:
-*שם:* ${formData.fullName || 'לא צוין'}
-*טלפון:* ${formData.phone || 'לא צוין'}
-*סוג אירוע:* ${formData.eventType || 'כללי'}
-*תאריך משוער:* ${formData.estimatedDate || 'גמיש'}
-*כמות מוזמנים:* ${formData.guestCount}
-${formData.addons.length > 0 ? `*תוספות:* ${formData.addons.join(', ')}` : ''}`;
-    return encodeURIComponent(text);
+    // Opening has to happen in the same tick as the click, otherwise it counts as a blocked popup.
+    if (!window.open(whatsappUrl, '_blank', 'noopener,noreferrer')) {
+      window.location.href = whatsappUrl;
+      return;
+    }
+
+    setIsSuccess(true);
   };
 
   return (
@@ -246,34 +270,15 @@ ${formData.addons.length > 0 ? `*תוספות:* ${formData.addons.join(', ')}` :
                 <button
                   id="submit-lead-btn"
                   type="submit"
-                  disabled={isSubmitting}
                   className="w-full bg-[#18281e] text-[#fdf9f4] font-sans-luxury text-sm sm:text-base font-semibold py-4 rounded uppercase tracking-widest hover:bg-[#2d3e33] active:scale-[0.99] transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <span className="animate-spin text-lg">✦</span>
-                      <span>שולח פרטים...</span>
-                    </span>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 text-[#fea279]" />
-                      <span>שלחו פרטים</span>
-                    </>
-                  )}
+                  <Send className="w-4 h-4 text-[#fea279]" />
+                  <span>שליחת הפרטים בוואטסאפ</span>
                 </button>
 
-                {/* Instant WhatsApp alternative */}
-                <div className="mt-4 text-center">
-                  <a
-                    href={`https://wa.me/972522957958?text=${getWhatsAppMessage()}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#18281e] hover:text-[#25D366] transition-colors py-1 px-3"
-                  >
-                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                    <span>או שלחו הודעה ישירה בוואטסאפ לתיאום מיידי</span>
-                  </a>
-                </div>
+                <p className="mt-3 text-center text-xs text-[#434844] font-sans-luxury font-light">
+                  הפרטים ייפתחו כהודעת וואטסאפ מוכנה אל הגג הסודי - נותר רק ללחוץ שליחה
+                </p>
               </form>
             ) : (
               /* Success confirmation state */
@@ -289,12 +294,12 @@ ${formData.addons.length > 0 ? `*תוספות:* ${formData.addons.join(', ')}` :
                   תודה רבה, {formData.fullName}!
                 </h3>
                 <p className="font-sans-luxury text-sm sm:text-base text-[#434844] max-w-md mx-auto mb-6">
-                  הפרטים התקבלו בהצלחה. מנהל האירועים של הגג הסודי יחזור אליך למספר {formData.phone} בתוך זמן קצר.
+                  הפרטים נפתחו בוואטסאפ כהודעה מוכנה. אחרי שתלחצו שליחה, מנהל האירועים של הגג הסודי יחזור אליך למספר {formData.phone} בתוך זמן קצר.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <a
-                    href={`https://wa.me/972522957958?text=${getWhatsAppMessage()}`}
+                    href={`https://wa.me/${OWNER_WHATSAPP}?text=${getWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#25D366] text-white px-6 py-3 rounded-lg font-sans-luxury text-sm font-semibold hover:bg-[#20b858] transition-colors flex items-center justify-center gap-2"
