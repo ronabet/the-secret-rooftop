@@ -5,7 +5,7 @@ export const HERO_SLIDES = [
     id: 'hero-1',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQXXUaSrQGYkUU5Ksb5jxbk5Pwz9o8GQ15o4CJw-nkhuSmWBuxR3pH0fEeL3VDiGtu6WKTk-bSj941TcQ0v25H9x7v9rESBGBArhAOVw4pMOtByJQU5_fQZJTXrx6-LHlK_K5P3DEqH59Ciynd1HrHPihaL-FvZXpvtLbgUDJZEOm_UZ8QQkbuiQDJkYmqp697Kb5T8MkEzM_NeMckSDxYSMnJUUxVQnNFbg93owohd_Jhm4yszCtjelSrjivWYifngQ',
     title: 'THE SECRET ROOFTOP',
-    subtitle: 'שקיעות קסומות, נוף פנורמי לים ואירועי בוטיק בלתי נשכחים בלב אשדוד',
+    subtitle: 'שקיעות קסומות, נוף פתוח 360° אל העיר ואירועי בוטיק בלתי נשכחים בלב אשדוד',
   },
   {
     id: 'hero-2',
@@ -76,7 +76,7 @@ export const EVENT_TYPES: EventType[] = [
       'פינות ישיבה לאונג׳ נמוכות עם כריות נוי ושטיחים',
       'עמדות בופה מעוצבות בסגנון ים-תיכוני',
       'מערכת סאונד מתקדמת ותאורת לילה מרהיבה',
-      'נוף פנורמי מרהיב אל חוף הים והמרינה של אשדוד'
+      'נוף פתוח 360° מרהיב אל קו הרקיע של אשדוד'
     ],
     features: [
       'התאמה מלאה לאירועי צהריים או ערב',
@@ -220,7 +220,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     url: VENUE_IMAGES.hero,
     title: 'הגג בשעת השקיעה',
     category: 'sunset',
-    description: 'מבט פנורמי על מתחם הדק מעץ, התאורה הרכה ורצועת החוף',
+    description: 'מבט 360° על מתחם הדק מעץ, התאורה הרכה וקו הרקיע של העיר',
   },
   {
     id: 'g-2',
@@ -241,7 +241,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     url: VENUE_IMAGES.boutique,
     title: 'שולחן אירוע בוטיק מעוצב',
     category: 'events',
-    description: 'סידורי פרחים עדינים, מפיות פשתן ונוף מרהיב לים התיכון',
+    description: 'סידורי פרחים עדינים, מפיות פשתן ונוף מרהיב אל העיר',
   },
   {
     id: 'g-5',
@@ -277,7 +277,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: 'האם המקום פועל גם בחודשי החורף?',
-    answer: 'בהחלט! המתחם מצויד בסגירת חורף שקופה פנורמית השומרת על הנוף המדהים לים לצד מערכות חימום נעימות, ומבטיח אירוע חם וקסום בכל מזג אוויר.',
+    answer: 'בהחלט! המתחם מצויד בסגירת חורף שקופה השומרת על הנוף הפתוח 360° אל העיר לצד מערכות חימום נעימות, ומבטיח אירוע חם וקסום בכל מזג אוויר.',
   },
   {
     question: 'האם יש חניה מסודרת ונגישות לבעלי מוגבלויות?',
@@ -291,7 +291,7 @@ export const FAQ_ITEMS: FaqItem[] = [
 
 export const VENUE_STATS = [
   { label: 'שטח המתחם', value: '600 מ״ר' },
-  { label: 'נוף פנורמי', value: '180° לים' },
+  { label: 'נוף פתוח לעיר', value: '360°' },
   { label: 'קיבולת אורחים', value: 'עד 150' },
   { label: 'אירועים שהופקו', value: '500+' },
 ];

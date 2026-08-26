@@ -34,7 +34,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             </div>
 
             <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl text-[#18281e] mb-6 leading-tight font-normal">
-              אווירה פריזאית מול הים
+              אווירה פריזאית מעל העיר
             </h2>
 
             <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-5 leading-relaxed font-light">
@@ -42,7 +42,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             </p>
 
             <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-8 leading-relaxed font-light">
-              המקום מציע מתחם מרווח של 600 מ"ר, מושלם לאירועי בוטיק, עם פינות ישיבה אלטרנטיביות, בר מרשים ונוף עוצר נשימה אל הים התיכון.
+              המקום מציע מתחם מרווח של 600 מ"ר באוויר הפתוח, מושלם לאירועי בוטיק, עם פינות ישיבה אלטרנטיביות, בר מרשים ונוף 360° עוצר נשימה אל כל העיר.
             </p>
 
             {/* Quick Stats Grid */}
@@ -67,7 +67,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#fdf9f4] border border-[#322206]/15 text-xs text-[#1c1c19] font-medium">
                 <Compass className="w-3.5 h-3.5 text-[#924a29]" />
-                קו ראשון למים
+                נוף פתוח 360°
               </span>
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#fdf9f4] border border-[#322206]/15 text-xs text-[#1c1c19] font-medium">
                 <Users className="w-3.5 h-3.5 text-[#18281e]" />

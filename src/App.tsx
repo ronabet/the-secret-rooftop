@@ -72,7 +72,7 @@ export default function App() {
         {/* 1. Hero Section */}
         <Hero onScrollToVenue={() => scrollToSection('venue')} />
 
-        {/* 2. Venue & Experience Section ("אווירה פריזאית מול הים") */}
+        {/* 2. Venue & Experience Section ("אווירה פריזאית מעל העיר") */}
         <Experience onOpenBooking={() => scrollToSection('contact')} />
 
         {/* 3. Event Types / Bento Grid ("אירועים בלתי נשכחים") */}

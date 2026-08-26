@@ -178,7 +178,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                 <div className="bg-[#f7f3ee] p-4 rounded-xl border border-[#322206]/15 space-y-3 mb-6">
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>מתחם הגג הסודי, טיילת אשדוד מול הים התיכון</span>
+                    <span>מתחם הגג הסודי, אשדוד - גג פתוח 360° מול נוף העיר</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Clock className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />

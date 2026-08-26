@@ -45,7 +45,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             <div>
               <div className="flex items-center gap-2 text-[#fcdeb5] text-xs font-semibold uppercase tracking-widest mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>חוויית אירוח קולינרית מול הים</span>
+                <span>חוויית אירוח קולינרית מעל העיר</span>
               </div>
               <h2 className="font-serif-luxury text-2xl sm:text-4xl text-white font-normal">
                 תפריט השף & בר הקוקטיילים
