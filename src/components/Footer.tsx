@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowUp, Instagram, Phone, MapPin } from 'lucide-react';
+import { ArrowUp, Instagram, Phone } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
-import { VENUE_ADDRESS } from '../data/venueData';
+import { VenueAddressBlock } from './VenueAddressBlock';
 
 interface FooterProps {
   onOpenPrivacy?: () => void;
@@ -32,13 +32,7 @@ export const Footer: React.FC<FooterProps> = ({
         </p>
       </div>
 
-      <div className="flex items-start gap-2 text-sm text-[#434844] text-center max-w-md">
-        <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-        <div>
-          <p>{VENUE_ADDRESS.street}</p>
-          <p className="text-[#924a29] font-medium mt-1">{VENUE_ADDRESS.parking}</p>
-        </div>
-      </div>
+      <VenueAddressBlock align="center" className="max-w-md" />
 
       <div className="flex items-center gap-4 text-[#18281e]/80">
         <a

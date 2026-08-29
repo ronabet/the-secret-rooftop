@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, MessageCircle, MapPin, Calendar, Utensils, Sparkles, Clock, CalendarCheck } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Calendar, Utensils, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { VenueAddressBlock } from './VenueAddressBlock';
 import { VENUE_ADDRESS } from '../data/venueData';
 
 interface HeaderProps {
@@ -206,14 +207,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
 
                 {/* Venue Quick Info Box */}
                 <div className="bg-[#f7f3ee] p-4 rounded-xl border border-[#322206]/15 space-y-3 mb-6">
-                  <div className="flex items-start gap-2.5 text-xs text-[#434844]">
-                    <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>{VENUE_ADDRESS.street}</span>
-                  </div>
-                  <div className="flex items-start gap-2.5 text-xs text-[#434844]">
-                    <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>{VENUE_ADDRESS.parking}</span>
-                  </div>
+                  <VenueAddressBlock />
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Clock className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
                     <span>אירועים בתיאום מראש: 16:00 - 01:00 (כולל שעת הזהב)</span>
