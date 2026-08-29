@@ -7,3 +7,7 @@ coverage/
 .env*
 !.env.example
 .vercel
+
+# Raw hero source footage (compressed outputs live in public/hero/)
+src/assets/video/source/*
+!src/assets/video/source/.gitkeep

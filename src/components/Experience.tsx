@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, SunMedium, Compass, Users, MapPin, CalendarCheck } from 'lucide-react';
-import { VENUE_IMAGES, VENUE_STATS, VENUE_ADDRESS } from '../data/venueData';
+import { Sparkles, SunMedium, Compass, Users, CalendarCheck } from 'lucide-react';
+import { VENUE_IMAGES, VENUE_STATS } from '../data/venueData';
+import { VenueAddressBlock } from './VenueAddressBlock';
 
 interface ExperienceProps {
   onOpenBooking: () => void;
@@ -43,13 +44,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
               המקום מציע מתחם מרווח של 600 מ״ר באוויר הפתוח — מושלם להצעות נישואין, אירועי בוטיק, ימי הולדת וערבי חברה, עם בר מרשים ונוף 360° אל כל העיר.
             </p>
 
-            <div className="flex items-start gap-2.5 text-sm text-[#434844] mb-8 bg-[#fdf9f4] border border-[#322206]/15 rounded-xl p-4">
-              <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-[#18281e]">{VENUE_ADDRESS.street}</p>
-                <p className="text-xs mt-1 text-[#924a29] font-medium">{VENUE_ADDRESS.parking}</p>
-              </div>
-            </div>
+            <VenueAddressBlock variant="card" className="mb-8" />
 
             <div className="grid grid-cols-3 gap-3 py-4 border-y border-[#18281e]/10 mb-8">
               {VENUE_STATS.map((stat, idx) => (

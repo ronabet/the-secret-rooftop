@@ -2,8 +2,8 @@
 
 @layer base {
   :root {
-    --font-serif: 'Libre Caslon Text', 'Frank Ruhl Libre', 'Playfair Display', serif;
-    --font-sans: 'Assistant', 'Be Vietnam Pro', sans-serif;
+    --font-serif: 'Frank Ruhl Libre', Georgia, serif;
+    --font-sans: 'Assistant', system-ui, -apple-system, sans-serif;
     --site-top-chrome: 6.75rem;
   }
 
@@ -15,11 +15,30 @@
 }
 
 .font-serif-luxury {
-  font-family: 'Libre Caslon Text', 'Frank Ruhl Libre', 'Playfair Display', Georgia, serif;
+  font-family: 'Frank Ruhl Libre', Georgia, serif;
 }
 
 .font-sans-luxury {
-  font-family: 'Assistant', 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  font-family: 'Assistant', system-ui, -apple-system, sans-serif;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.35;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-slide-enter {
+  animation: heroFadeIn 1.2s ease-in-out both;
+}
+
+.hero-content-enter {
+  animation: heroFadeIn 0.9s ease-out 0.1s both;
 }
 
 /* Glassmorphism & Atmospheric effects */

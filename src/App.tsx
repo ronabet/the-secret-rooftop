@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Experience } from './components/Experience';
 import { EventTypes } from './components/EventTypes';
 import { Culinary } from './components/Culinary';
-import { Gallery } from './components/Gallery';
 import { ContactForm } from './components/ContactForm';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { MobileBottomNav } from './components/MobileBottomNav';
-import { MenuModal } from './components/MenuModal';
-import { EventDetailModal } from './components/EventDetailModal';
-import { LightboxModal } from './components/LightboxModal';
-import { PolicyModal } from './components/PolicyModal';
 import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
+
+const Gallery = lazy(() => import('./components/Gallery').then((m) => ({ default: m.Gallery })));
+const MenuModal = lazy(() => import('./components/MenuModal').then((m) => ({ default: m.MenuModal })));
+const EventDetailModal = lazy(() =>
+  import('./components/EventDetailModal').then((m) => ({ default: m.EventDetailModal }))
+);
+const LightboxModal = lazy(() =>
+  import('./components/LightboxModal').then((m) => ({ default: m.LightboxModal }))
+);
+const PolicyModal = lazy(() => import('./components/PolicyModal').then((m) => ({ default: m.PolicyModal })));
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,27 +29,38 @@ export default function App() {
   const [preselectedEventType, setPreselectedEventType] = useState<string>('');
   const [activeSection, setActiveSection] = useState<string>('venue');
 
-  // Track scroll position to highlight bottom mobile navigation items
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['venue', 'events', 'gallery', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+    const sections = ['venue', 'events', 'gallery', 'contact'];
+    const observed = new Map<string, IntersectionObserverEntry>();
 
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          observed.set(entry.target.id, entry);
+        });
+
+        let bestSection = 'venue';
+        let bestRatio = 0;
+
+        for (const sectionId of sections) {
+          const entry = observed.get(sectionId);
+          if (entry?.isIntersecting && entry.intersectionRatio > bestRatio) {
+            bestRatio = entry.intersectionRatio;
+            bestSection = sectionId;
           }
         }
-      }
-    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+        setActiveSection(bestSection);
+      },
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.1, 0.25, 0.5] }
+    );
+
+    sections.forEach((sectionId) => {
+      const el = document.getElementById(sectionId);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -61,37 +77,25 @@ export default function App() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#fdf9f4] text-[#1c1c19] flex flex-col antialiased selection:bg-[#fcdeb5] selection:text-[#271901] text-right">
-      {/* Header */}
       <Header
         onOpenMenu={() => setIsMenuOpen(true)}
         onOpenBooking={() => scrollToSection('contact')}
       />
 
-      {/* Main Content Area */}
       <main className="flex-1">
-        {/* 1. Hero Section */}
         <Hero onCheckAvailability={() => scrollToSection('contact')} />
-
-        {/* 2. Venue & Experience Section */}
         <Experience onOpenBooking={() => scrollToSection('contact')} />
-
-        {/* 3. Event Types / Bento Grid ("אירועים בלתי נשכחים") */}
         <EventTypes onSelectEvent={(event) => setSelectedEvent(event)} />
-
-        {/* 4. Culinary & Bar Section ("חוויה קולינרית עשירה") */}
         <Culinary onOpenMenu={() => setIsMenuOpen(true)} />
 
-        {/* 5. Photo Gallery ("רגעים של קסם") */}
-        <Gallery onImageClick={(image) => setSelectedImage(image)} />
+        <Suspense fallback={<div className="py-16 sm:py-24 bg-[#fdf9f4]" aria-hidden="true" />}>
+          <Gallery onImageClick={(image) => setSelectedImage(image)} />
+        </Suspense>
 
-        {/* 6. Lead Capture & Booking Form ("בואו נפיק לכם אירוע בלתי נשכח") */}
         <ContactForm preselectedEventType={preselectedEventType} />
-
-        {/* 7. FAQ Section */}
         <FaqSection />
       </main>
 
-      {/* Footer */}
       <Footer
         onOpenPrivacy={() => setPolicyModalType('privacy')}
         onOpenTerms={() => setPolicyModalType('terms')}
@@ -99,7 +103,6 @@ export default function App() {
         onOpenAccessibility={() => setPolicyModalType('accessibility')}
       />
 
-      {/* Mobile Bottom Navigation Bar matching HTML design */}
       <MobileBottomNav
         activeSection={activeSection}
         onNavigate={(sectionId) => {
@@ -108,7 +111,6 @@ export default function App() {
         }}
       />
 
-      {/* Floating WhatsApp Action Button */}
       <a
         href="https://wa.me/972522957958?text=שלום%2C%20הגעתי%20דרך%20אתר%20הגג%20הסודי%20ואשמח%20לפרטים"
         target="_blank"
@@ -122,28 +124,31 @@ export default function App() {
         </span>
       </a>
 
-      {/* Interactive Modals */}
-      <MenuModal
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onSelectEventInquiry={() => scrollToSection('contact')}
-      />
+      <Suspense fallback={null}>
+        {isMenuOpen && (
+          <MenuModal
+            isOpen={isMenuOpen}
+            onClose={() => setIsMenuOpen(false)}
+            onSelectEventInquiry={() => scrollToSection('contact')}
+          />
+        )}
 
-      <EventDetailModal
-        event={selectedEvent}
-        onClose={() => setSelectedEvent(null)}
-        onBookEvent={handleBookEventFromModal}
-      />
+        {selectedEvent && (
+          <EventDetailModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+            onBookEvent={handleBookEventFromModal}
+          />
+        )}
 
-      <LightboxModal
-        image={selectedImage}
-        onClose={() => setSelectedImage(null)}
-      />
+        {selectedImage && (
+          <LightboxModal image={selectedImage} onClose={() => setSelectedImage(null)} />
+        )}
 
-      <PolicyModal
-        type={policyModalType}
-        onClose={() => setPolicyModalType(null)}
-      />
+        {policyModalType && (
+          <PolicyModal type={policyModalType} onClose={() => setPolicyModalType(null)} />
+        )}
+      </Suspense>
     </div>
   );
 }

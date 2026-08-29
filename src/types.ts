@@ -48,3 +48,24 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
+
+export type HeroImageSlide = {
+  id: string;
+  kind: 'image';
+  image: string;
+  title: string;
+  subtitle: string;
+};
+
+export type HeroVideoSlide = {
+  id: string;
+  kind: 'video';
+  mp4: string;
+  webm: string;
+  poster: string;
+  posterUrl: string;
+  title: string;
+  subtitle: string;
+};
+
+export type HeroSlide = HeroImageSlide | HeroVideoSlide;

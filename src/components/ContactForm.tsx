@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, CheckCircle2, MessageCircle, Phone, Sparkles, User, Calendar, Users } from 'lucide-react';
+import { Send, CheckCircle2, MessageCircle, Phone, Sparkles, Calendar, Users, Navigation } from 'lucide-react';
 import { BookingFormData } from '../types';
 import { VENUE_ADDRESS } from '../data/venueData';
 
@@ -124,9 +124,18 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
             השאירו פרטים ונחזור אליכם בהקדם לבדיקת תאריך פנוי ותיאום פגישה.
           </p>
 
-          <p className="font-sans-luxury text-sm text-[#924a29] mb-10 font-medium">
-            {VENUE_ADDRESS.full}
-          </p>
+          <div className="font-sans-luxury text-sm text-[#924a29] mb-10 font-medium">
+            <p>{VENUE_ADDRESS.full}</p>
+            <a
+              href={VENUE_ADDRESS.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#18281e] hover:text-[#924a29] mt-2 transition-colors underline-offset-2 hover:underline"
+            >
+              <Navigation className="w-3.5 h-3.5" />
+              <span>ניווט במפות Google</span>
+            </a>
+          </div>
         </motion.div>
 
         {/* Form Card matching HTML design */}
