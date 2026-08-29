@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, MessageCircle, Calendar, Utensils, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { VenueAddressBlock } from './VenueAddressBlock';
-import { VENUE_ADDRESS } from '../data/venueData';
 
 interface HeaderProps {
   onOpenMenu: () => void;

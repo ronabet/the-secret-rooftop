@@ -1,30 +1,149 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronUp, CalendarCheck } from 'lucide-react';
 import { HERO_SLIDES } from '../data/venueData';
+import { HeroSlide } from '../types';
 import logoImage from '../assets/images/secret_rooftop_logo_1787736669250.jpg';
 
 interface HeroProps {
   onCheckAvailability: () => void;
 }
 
+function shouldEnableHeroVideo() {
+  if (typeof window === 'undefined') return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  if (connection?.saveData) return false;
+  if (connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g') return false;
+
+  return true;
+}
+
+const HeroBackground: React.FC<{
+  slide: HeroSlide;
+  isActive: boolean;
+  allowVideo: boolean;
+}> = ({ slide, isActive, allowVideo }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  const isVideoSlide = slide.kind === 'video';
+  const showVideo = isVideoSlide && allowVideo && !videoFailed && isActive;
+
+  useEffect(() => {
+    if (!isVideoSlide || !isActive) {
+      videoRef.current?.pause();
+      return;
+    }
+
+    if (!allowVideo || videoFailed) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.load();
+    video.play().catch(() => {
+      setVideoFailed(true);
+    });
+  }, [allowVideo, isActive, isVideoSlide, videoFailed]);
+
+  if (slide.kind === 'image') {
+    return (
+      <motion.img
+        key={slide.id}
+        src={slide.image}
+        alt="The Secret Rooftop — נוף מהגג"
+        initial={{ opacity: 0.35, scale: 1.02 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0.35 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
+        className="w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
+        fetchPriority={isActive ? 'high' : 'auto'}
+        decoding="async"
+      />
+    );
+  }
+
+  return (
+    <motion.div
+      key={slide.id}
+      initial={{ opacity: 0.35, scale: 1.02 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0.35 }}
+      transition={{ duration: 1.2, ease: 'easeInOut' }}
+      className="relative w-full h-full"
+    >
+      <img
+        src={slide.poster}
+        alt="הגג הסודי — נוף מהרופטופ"
+        className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
+        fetchPriority="high"
+        decoding="async"
+      />
+
+      {showVideo && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] transition-opacity duration-700 ${
+            videoReady ? 'opacity-100' : 'opacity-0'
+          }`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster={slide.posterUrl}
+          onCanPlay={() => setVideoReady(true)}
+          onError={() => setVideoFailed(true)}
+          aria-hidden="true"
+        >
+          <source src={slide.webm} type="video/webm" />
+          <source src={slide.mp4} type="video/mp4" />
+        </video>
+      )}
+    </motion.div>
+  );
+};
+
 export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [allowVideo, setAllowVideo] = useState(false);
+
+  const activeSlide = HERO_SLIDES[currentSlide];
+
+  useEffect(() => {
+    if (!shouldEnableHeroVideo()) return;
+
+    const enableVideo = () => setAllowVideo(true);
+
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(enableVideo, { timeout: 2500 });
+      return () => window.cancelIdleCallback(id);
+    }
+
+    const timer = setTimeout(enableVideo, 1800);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
-  // Preload upcoming slides after the first paint so rotation stays smooth
   useEffect(() => {
     HERO_SLIDES.forEach((slide, index) => {
-      if (index === 0) return;
+      if (index === currentSlide || slide.kind !== 'image') return;
       const img = new Image();
       img.src = slide.image;
     });
+  }, [currentSlide]);
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
   }, []);
 
   return (
@@ -38,18 +157,11 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
     >
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
-          <motion.img
-            key={HERO_SLIDES[currentSlide].id}
-            src={HERO_SLIDES[currentSlide].image}
-            alt="The Secret Rooftop sunset view"
-            initial={{ opacity: 0.35, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0.35 }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
-            className="w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
-            referrerPolicy="no-referrer"
-            fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
-            decoding="async"
+          <HeroBackground
+            key={activeSlide.id}
+            slide={activeSlide}
+            isActive
+            allowVideo={allowVideo}
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/45 pointer-events-none" />
@@ -68,7 +180,6 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
                 src={logoImage}
                 alt="הגג הסודי לוגו רשמי"
                 className="w-full h-full object-contain rounded-full bg-[#fdf9f4]"
-                referrerPolicy="no-referrer"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -101,8 +212,8 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
             return (
               <button
                 key={slide.id}
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`עבור לתמונה ${index + 1}`}
+                onClick={() => goToSlide(index)}
+                aria-label={slide.kind === 'video' ? 'עבור לסרטון הגג' : `עבור לתמונה ${index + 1}`}
                 className={`transition-all duration-300 cursor-pointer h-2 rounded-full ${
                   isActive
                     ? 'w-7 sm:w-8 bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]'

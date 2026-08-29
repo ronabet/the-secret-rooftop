@@ -1,4 +1,4 @@
-import { EventType, MenuCategory, GalleryImage, FaqItem } from '../types';
+import { EventType, MenuCategory, GalleryImage, FaqItem, HeroSlide, HeroVideoSlide } from '../types';
 
 import rooftopSunsetStage from '../assets/images/rooftop-sunset-stage.jpg';
 import rooftopLoungeSeating from '../assets/images/rooftop-lounge-seating.jpg';
@@ -32,27 +32,36 @@ export const VENUE_IMAGES = {
   pizzaSlice,
 };
 
-export const HERO_SLIDES = [
-  {
-    id: 'hero-1',
-    image: rooftopSunsetStage,
-    title: 'THE SECRET ROOFTOP',
-    subtitle: 'שקיעות קסומות, נוף פתוח 360° אל העיר ואירועי בוטיק בלתי נשכחים בלב אשדוד',
-  },
+export const HERO_VIDEO: HeroVideoSlide = {
+  id: 'hero-video',
+  kind: 'video',
+  mp4: '/hero/rooftop-drone.mp4',
+  webm: '/hero/rooftop-drone.webm',
+  poster: rooftopSunsetStage,
+  posterUrl: '/hero/rooftop-drone-poster.jpg',
+  title: 'THE SECRET ROOFTOP',
+  subtitle: 'מבט מהגג — נוף פתוח 360° אל העיר, שקיעות קסומות ואירועי בוטיק בלב אשדוד',
+};
+
+export const HERO_SLIDES: HeroSlide[] = [
+  HERO_VIDEO,
   {
     id: 'hero-2',
+    kind: 'image',
     image: rooftopLoungeSeating,
     title: 'BOHEMIAN LUXURY',
     subtitle: '600 מ״ר של עץ טבעי, צמחייה עשירה ועיצוב שעת הזהב (Golden Hour)',
   },
   {
     id: 'hero-3',
+    kind: 'image',
     image: tableSkylineSunset,
     title: 'MARRIAGE PROPOSALS',
     subtitle: 'הרגע המרגש ביותר בחיים שלכם מעוצב ומתוכנן עד הפרט האחרון',
   },
   {
     id: 'hero-4',
+    kind: 'image',
     image: barVanEvening,
     title: 'EXCLUSIVE GATHERINGS',
     subtitle: 'ערבי קוקטייל והרמות כוסית באווירה אינטימית ויוקרתית',
