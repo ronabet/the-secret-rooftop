@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, MessageCircle, Calendar, Utensils, Sparkles, Clock, CalendarCheck } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { VenueAddressBlock } from './VenueAddressBlock';
 
 interface HeaderProps {
-  onOpenMenu: () => void;
   onOpenBooking: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const bannerRef = useRef<HTMLDivElement>(null);
@@ -192,21 +191,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                     </button>
                   ))}
 
-                  <button
-                    onClick={() => {
-                      setIsMobileDrawerOpen(false);
-                      onOpenMenu();
-                    }}
-                    className="w-full text-right py-3 px-4 rounded-lg bg-[#f1ede8] text-[#18281e] font-sans-luxury text-base font-semibold transition-colors flex items-center justify-between mt-3"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Utensils className="w-4 h-4 text-[#924a29]" />
-                      צפייה בתפריטי שף ובר
-                    </span>
-                    <span className="text-xs bg-[#ccb474] text-black px-2 py-0.5 rounded font-bold">
-                      תפריטים
-                    </span>
-                  </button>
                 </div>
 
                 {/* Venue Quick Info Box */}

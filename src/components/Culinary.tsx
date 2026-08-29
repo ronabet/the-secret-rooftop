@@ -3,11 +3,7 @@ import { motion } from 'motion/react';
 import { Utensils, Wine, Award, ChefHat, Sparkles } from 'lucide-react';
 import { VENUE_IMAGES } from '../data/venueData';
 
-interface CulinaryProps {
-  onOpenMenu: () => void;
-}
-
-export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
+export const Culinary: React.FC = () => {
   return (
     <section
       id="culinary"
@@ -75,17 +71,7 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
                 </li>
               </ul>
 
-              {/* Action button */}
               <div className="flex flex-wrap gap-4 items-center">
-                <button
-                  id="culinary-open-menu-btn"
-                  onClick={onOpenMenu}
-                  className="bg-[#18281e] hover:bg-[#2d3e33] text-[#fdf9f4] font-sans-luxury text-sm font-semibold px-7 py-3.5 rounded transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center gap-2"
-                >
-                  <Utensils className="w-4 h-4 text-[#fea279]" />
-                  <span>צפייה בתפריט המלא</span>
-                </button>
-
                 <div className="text-xs text-[#434844] font-sans-luxury flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-[#924a29]" />
                   <span>כשר למהדרין</span>

@@ -12,7 +12,6 @@ import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
 
 const Gallery = lazy(() => import('./components/Gallery').then((m) => ({ default: m.Gallery })));
-const MenuModal = lazy(() => import('./components/MenuModal').then((m) => ({ default: m.MenuModal })));
 const EventDetailModal = lazy(() =>
   import('./components/EventDetailModal').then((m) => ({ default: m.EventDetailModal }))
 );
@@ -22,7 +21,6 @@ const LightboxModal = lazy(() =>
 const PolicyModal = lazy(() => import('./components/PolicyModal').then((m) => ({ default: m.PolicyModal })));
 
 export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [policyModalType, setPolicyModalType] = useState<'privacy' | 'terms' | 'rules' | 'accessibility' | null>(null);
@@ -77,16 +75,13 @@ export default function App() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#fdf9f4] text-[#1c1c19] flex flex-col antialiased selection:bg-[#fcdeb5] selection:text-[#271901] text-right">
-      <Header
-        onOpenMenu={() => setIsMenuOpen(true)}
-        onOpenBooking={() => scrollToSection('contact')}
-      />
+      <Header onOpenBooking={() => scrollToSection('contact')} />
 
       <main className="flex-1">
         <Hero onCheckAvailability={() => scrollToSection('contact')} />
         <Experience onOpenBooking={() => scrollToSection('contact')} />
         <EventTypes onSelectEvent={(event) => setSelectedEvent(event)} />
-        <Culinary onOpenMenu={() => setIsMenuOpen(true)} />
+        <Culinary />
 
         <Suspense fallback={<div className="py-16 sm:py-24 bg-[#fdf9f4]" aria-hidden="true" />}>
           <Gallery onImageClick={(image) => setSelectedImage(image)} />
@@ -125,14 +120,6 @@ export default function App() {
       </a>
 
       <Suspense fallback={null}>
-        {isMenuOpen && (
-          <MenuModal
-            isOpen={isMenuOpen}
-            onClose={() => setIsMenuOpen(false)}
-            onSelectEventInquiry={() => scrollToSection('contact')}
-          />
-        )}
-
         {selectedEvent && (
           <EventDetailModal
             event={selectedEvent}
