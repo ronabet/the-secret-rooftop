@@ -70,9 +70,9 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1">
         {/* 1. Hero Section */}
-        <Hero onScrollToVenue={() => scrollToSection('venue')} />
+        <Hero onCheckAvailability={() => scrollToSection('contact')} />
 
-        {/* 2. Venue & Experience Section ("אווירה פריזאית מעל העיר") */}
+        {/* 2. Venue & Experience Section */}
         <Experience onOpenBooking={() => scrollToSection('contact')} />
 
         {/* 3. Event Types / Bento Grid ("אירועים בלתי נשכחים") */}

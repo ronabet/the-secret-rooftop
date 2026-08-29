@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, SunMedium, Compass, Users } from 'lucide-react';
-import { VENUE_IMAGES, VENUE_STATS } from '../data/venueData';
+import { Sparkles, SunMedium, Compass, Users, MapPin, CalendarCheck } from 'lucide-react';
+import { VENUE_IMAGES, VENUE_STATS, VENUE_ADDRESS } from '../data/venueData';
 
 interface ExperienceProps {
   onOpenBooking: () => void;
@@ -14,13 +14,11 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
       aria-label="החוויה שלנו"
       className="py-16 sm:py-24 px-4 sm:px-8 md:px-16 bg-[#f7f3ee] relative overflow-hidden"
     >
-      {/* Decorative organic background aura */}
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#fea279]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#18281e]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-          {/* Left / Hebrew Right Content */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -34,19 +32,26 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             </div>
 
             <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl text-[#18281e] mb-6 leading-tight font-normal">
-              אווירה פריזאית מעל העיר
+              המקום הסודי שלכם מעל העיר
             </h2>
 
             <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-5 leading-relaxed font-light">
-              ברוכים הבאים לגג הסודי – פנינה נסתרת בלב אשדוד. עיצבנו חלל אורגני ויוקרתי המשלב אלמנטים של עץ טבעי, צמחייה עשירה ותאורה רכה המדמה את שעת הזהב (Golden Hour).
+              ברוכים הבאים לגג הסודי – פנינה נסתרת בלב אשדוד. עיצבנו חלל אורגני ויוקרתי המשלב אלמנטים של עץ טבעי, צמחייה עשירה ותאורה רכה המדמה את שעת הזהב.
             </p>
 
-            <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-8 leading-relaxed font-light">
-              המקום מציע מתחם מרווח של 600 מ"ר באוויר הפתוח, מושלם לאירועי בוטיק, עם פינות ישיבה אלטרנטיביות, בר מרשים ונוף 360° עוצר נשימה אל כל העיר.
+            <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-6 leading-relaxed font-light">
+              המקום מציע מתחם מרווח של 600 מ״ר באוויר הפתוח — מושלם להצעות נישואין, אירועי בוטיק, ימי הולדת וערבי חברה, עם בר מרשים ונוף 360° אל כל העיר.
             </p>
 
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-4 border-y border-[#18281e]/10 mb-8">
+            <div className="flex items-start gap-2.5 text-sm text-[#434844] mb-8 bg-[#fdf9f4] border border-[#322206]/15 rounded-xl p-4">
+              <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-[#18281e]">{VENUE_ADDRESS.street}</p>
+                <p className="text-xs mt-1 text-[#924a29] font-medium">{VENUE_ADDRESS.parking}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 py-4 border-y border-[#18281e]/10 mb-8">
               {VENUE_STATS.map((stat, idx) => (
                 <div key={idx} className="text-center md:text-right">
                   <div className="font-serif-luxury text-xl sm:text-2xl font-bold text-[#18281e]">
@@ -59,7 +64,6 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
               ))}
             </div>
 
-            {/* Interactive Feature Pills */}
             <div className="flex flex-wrap gap-2.5 mb-8">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#fdf9f4] border border-[#322206]/15 text-xs text-[#1c1c19] font-medium">
                 <SunMedium className="w-3.5 h-3.5 text-[#fea279]" />
@@ -71,19 +75,19 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#fdf9f4] border border-[#322206]/15 text-xs text-[#1c1c19] font-medium">
                 <Users className="w-3.5 h-3.5 text-[#18281e]" />
-                אירועים פרטיים ועסקיים
+                עד 150 איש
               </span>
             </div>
 
             <button
               onClick={onOpenBooking}
-              className="inline-flex items-center justify-center bg-[#18281e] hover:bg-[#2d3e33] text-[#fdf9f4] font-sans-luxury text-sm font-semibold px-8 py-3.5 rounded transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 bg-[#18281e] hover:bg-[#2d3e33] text-[#fdf9f4] font-sans-luxury text-sm font-semibold px-8 py-3.5 rounded transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
             >
-              תיאום סיור במתחם
+              <CalendarCheck className="w-4 h-4 text-[#fea279]" />
+              <span>בדיקת תאריך פנוי</span>
             </button>
           </motion.div>
 
-          {/* Right / Venue Image with Gold frame overlay matching screenshot */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -96,8 +100,9 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
               alt="The Secret Rooftop luxury boho space"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
             />
-            {/* Subtle Gold/Tertiary accent border overlay */}
             <div className="absolute inset-0 border border-[#322206]/35 rounded-xl pointer-events-none" />
             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg text-white text-xs font-sans-luxury border border-white/20">
               פינות הישיבה, הצמחייה ותאורת המחרוזות במתחם הפתוח

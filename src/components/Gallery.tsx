@@ -89,7 +89,8 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
                   src={image.url}
                   alt={image.title}
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Gradient Overlay */}
