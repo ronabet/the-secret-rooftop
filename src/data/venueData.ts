@@ -1,4 +1,4 @@
-import { EventType, MenuCategory, GalleryImage, FaqItem, HeroSlide, HeroVideoSlide } from '../types';
+import { EventType, GalleryImage, FaqItem, HeroSlide, HeroVideoSlide } from '../types';
 
 import rooftopSunsetStage from '../assets/images/rooftop-sunset-stage.jpg';
 import rooftopLoungeSeating from '../assets/images/rooftop-lounge-seating.jpg';
@@ -140,108 +140,6 @@ export const EVENT_TYPES: EventType[] = [
       'מתחם VIP מקורה לאירועים בכל עונות השנה'
     ],
     startingPrice: 'חבילות מותאמות אישית'
-  }
-];
-
-export const MENU_CATEGORIES: MenuCategory[] = [
-  {
-    id: 'dairy-gourmet',
-    name: 'תפריט שף חלבי',
-    description: 'תפריט חלבי המתחלף בהתאם לביקוש, לאופי האירוע ולמספר האורחים',
-    icon: 'restaurant',
-    items: [
-      {
-        name: 'פלטת גבינות בוטיק ופירות העונה',
-        description: 'גאודה הולנדית מיושנת, קממבר כמהין, פטה כבשים מעודנת, אגוזים מקורמלים, תאנים טריות וקרקרים בעבודת יד',
-        tags: ['גבינות בוטיק', 'Signature'],
-        isSignature: true,
-      },
-      {
-        name: 'ברוסקטת עגבניות שרי צלויות ובוראטה',
-        description: 'בוראטה טרייה מנוקדת בשמן זית כתית מעולה, בלסמי מצומצם 8 שנים ועלי בזיליקום רעננים',
-        tags: ['איטלקי קלאסי'],
-      },
-      {
-        name: 'סביצ׳ה דג ים ים-תיכוני',
-        description: 'נתחי מוסר ים טרי, קוביות מנגו, צ׳ילי אדום, כוסברה וקרם אבוקדו על טוסטון קראנצ׳י',
-        tags: ['דגים טריים', 'מומלץ'],
-        isSignature: true,
-      },
-      {
-        name: 'רביולי ארטישוק ירושלמי ברוטב חמאת מרווה',
-        description: 'בצק פסטה טרי במילוי קטיפתי, שקדים קלויים ופתיתי פרמז׳ן גרנה פדנו',
-        tags: ['חם', 'איטלקי'],
-      },
-      {
-        name: 'סלט עלים רענן עם גבינת ברי ואגסים מקורמלים',
-        description: 'מיקס חסות פריכות, רוקט, אגוזי מלך קלויים וויניגרט הדרים ודבש פרחי בר',
-        tags: ['צמחוני'],
-      },
-      {
-        name: 'פוקאצ׳ות חמות מטאבון אבן',
-        description: 'רוזמרין, מלח אטלנטי, שום קונפי ומטבל עגבניות מיובשות ושמן זית זך',
-        tags: ['נאפה במקום'],
-      }
-    ]
-  },
-  {
-    id: 'cocktails-bar',
-    name: 'בר קוקטיילים & אלכוהול פרימיום',
-    description: 'מיקסולוגיה מול השקיעה עם תוצרת חוץ מובחרת וסירופים ביתיים',
-    icon: 'local_bar',
-    items: [
-      {
-        name: 'Golden Hour Sunset Spritz',
-        description: 'אפרול, פרוסקו איטלקי מובחר, סודה פרימיום, תפוז דם ונגיעת רוזמרין מעושן',
-        tags: ['Signature Drink'],
-        isSignature: true,
-      },
-      {
-        name: 'The Secret Rooftop Mule',
-        description: 'וודקה בלוגה פרימיום, מיץ ליים סחוט טרי, בירת ג׳ינג׳ר חריפה ונענע רעננה בכוס נחושת',
-        tags: ['מרענן'],
-      },
-      {
-        name: 'Smoky Mezcal Passion',
-        description: 'מזקל מעושן, מחית פסיפלורה טבעית, סירופ אגבה אורגני ומלח צ׳ילי ורוד',
-        tags: ['מעושן & אקזוטי'],
-        isSignature: true,
-      },
-      {
-        name: 'French Lavender Gin & Tonic',
-        description: 'ג׳ין הנדריקס, ליקר לבנדר עדין, מי טוניק בוטניים, פרוסות מלפפון וגרגרי ערער',
-        tags: ['אלגנטי'],
-      },
-      {
-        name: 'מרתף יינות שף',
-        description: 'מבחר יינות לבנים, אדומים ורוזה ממיטב היקבים בישראל ובעולם (שרדונה, סוביניון בלאן, קברנה סוביניון, גראנש)',
-        tags: ['יינות מובחרים'],
-      }
-    ]
-  },
-  {
-    id: 'welcome-stations',
-    name: 'עמדות קבלת פנים & פינגר פוד',
-    description: 'מנות ביס מעוצבות להגשה מסתובבת ועמדות שוק חיות',
-    icon: 'tapas',
-    items: [
-      {
-        name: 'עמדת טאפאס ים תיכונית',
-        description: 'ארנצ׳יני כמהין ופרמז׳ן, קרואסונים פריכים במילוי סלמון מעושן ומסקרפונה, טארטלטים במילוי קרם חציל שרוף ופטה',
-        tags: ['קבלת פנים'],
-        isSignature: true,
-      },
-      {
-        name: 'עמדת סושי פיוז׳ן צמחוני ודגים',
-        description: 'רולים מיוחדים בהרכבה חיה: סלמון אבוקדו, טונה אדומה קראנץ׳, וסושי בטטה קריספי',
-        tags: ['טרי במקום'],
-      },
-      {
-        name: 'מיני קינוחים ופטיפורים',
-        description: 'טארטלט לימון ומרנג איטלקי שרוף, מוס שוקולד בלגי אישי, פבלובה פירות יער וקאפקייקס פיסטוק עשיר',
-        tags: ['מתוקים'],
-      }
-    ]
   }
 ];
 

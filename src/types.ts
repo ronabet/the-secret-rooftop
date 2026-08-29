@@ -11,21 +11,6 @@ export interface EventType {
   startingPrice?: string;
 }
 
-export interface MenuItem {
-  name: string;
-  description: string;
-  tags?: string[];
-  isSignature?: boolean;
-}
-
-export interface MenuCategory {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  items: MenuItem[];
-}
-
 export interface GalleryImage {
   id: string;
   url: string;
