@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { ChevronUp, CalendarCheck } from 'lucide-react';
 import { HERO_SLIDES } from '../data/venueData';
 import { HeroSlide } from '../types';
@@ -51,15 +50,11 @@ const HeroBackground: React.FC<{
 
   if (slide.kind === 'image') {
     return (
-      <motion.img
+      <img
         key={slide.id}
         src={slide.image}
         alt="The Secret Rooftop — נוף מהגג"
-        initial={{ opacity: 0.35, scale: 1.02 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0.35 }}
-        transition={{ duration: 1.2, ease: 'easeInOut' }}
-        className="w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
+        className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] hero-slide-enter"
         fetchPriority={isActive ? 'high' : 'auto'}
         decoding="async"
       />
@@ -67,21 +62,19 @@ const HeroBackground: React.FC<{
   }
 
   return (
-    <motion.div
-      key={slide.id}
-      initial={{ opacity: 0.35, scale: 1.02 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0.35 }}
-      transition={{ duration: 1.2, ease: 'easeInOut' }}
-      className="relative w-full h-full"
-    >
-      <img
-        src={slide.poster}
-        alt="הגג הסודי — נוף מהרופטופ"
-        className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
-        fetchPriority="high"
-        decoding="async"
-      />
+    <div key={slide.id} className="absolute inset-0 w-full h-full hero-slide-enter">
+      <picture>
+        <source srcSet="/hero/rooftop-drone-poster.webp" type="image/webp" />
+        <img
+          src={slide.posterUrl}
+          alt="הגג הסודי — נוף מהרופטופ"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
 
       {showVideo && (
         <video
@@ -103,7 +96,7 @@ const HeroBackground: React.FC<{
           <source src={slide.mp4} type="video/mp4" />
         </video>
       )}
-    </motion.div>
+    </div>
   );
 };
 
@@ -156,29 +149,24 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
         pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pt-6 md:pb-6"
     >
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          <HeroBackground
-            key={activeSlide.id}
-            slide={activeSlide}
-            isActive
-            allowVideo={allowVideo}
-          />
-        </AnimatePresence>
+        <HeroBackground
+          key={activeSlide.id}
+          slide={activeSlide}
+          isActive
+          allowVideo={allowVideo}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/45 pointer-events-none" />
       </div>
 
       <div className="relative z-10 flex-1 min-h-0 w-full text-center flex flex-col items-center justify-center px-4 pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="flex flex-col items-center"
-        >
+        <div className="flex flex-col items-center hero-content-enter">
           <div className="relative mb-2.5 sm:mb-4 group">
             <div className="w-16 h-16 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full p-1 bg-white/20 backdrop-blur-md border border-white/40 shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden">
               <img
                 src={logoImage}
                 alt="הגג הסודי לוגו רשמי"
+                width={112}
+                height={112}
                 className="w-full h-full object-contain rounded-full bg-[#fdf9f4]"
                 fetchPriority="high"
                 decoding="async"
@@ -202,7 +190,7 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
             <span className="text-white/40 hidden sm:inline">•</span>
             <span className="font-medium text-white">🍸 ערבי חברה וקוקטייל</span>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="relative z-20 w-full flex flex-col items-center gap-3 shrink-0 px-4">

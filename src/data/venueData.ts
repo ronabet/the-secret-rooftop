@@ -37,7 +37,7 @@ export const HERO_VIDEO: HeroVideoSlide = {
   kind: 'video',
   mp4: '/hero/rooftop-drone.mp4',
   webm: '/hero/rooftop-drone.webm',
-  poster: rooftopSunsetStage,
+  poster: '/hero/rooftop-drone-poster.jpg',
   posterUrl: '/hero/rooftop-drone-poster.jpg',
   title: 'THE SECRET ROOFTOP',
   subtitle: 'מבט מהגג — נוף פתוח 360° אל העיר, שקיעות קסומות ואירועי בוטיק בלב אשדוד',
