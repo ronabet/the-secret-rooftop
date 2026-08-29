@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Utensils, Wine, Award, ChefHat, Sparkles } from 'lucide-react';
 import { VENUE_IMAGES } from '../data/venueData';
+import { ResponsiveImage } from './ResponsiveImage';
 
 export const Culinary: React.FC = () => {
   return (
@@ -84,12 +85,11 @@ export const Culinary: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <div className="relative rounded-xl overflow-hidden shadow-md group">
-                    <img
-                      src={VENUE_IMAGES.cheesePlatter}
+                    <ResponsiveImage
+                      image={VENUE_IMAGES.cheesePlatter}
                       alt="מגש גבינות של הגג הסודי"
+                      sizes="(max-width: 768px) 50vw, 280px"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
                     />
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>
@@ -100,12 +100,11 @@ export const Culinary: React.FC = () => {
 
                 <div className="space-y-2 mt-6 sm:mt-10">
                   <div className="relative rounded-xl overflow-hidden shadow-md group">
-                    <img
-                      src={VENUE_IMAGES.cocktail}
+                    <ResponsiveImage
+                      image={VENUE_IMAGES.cocktail}
                       alt="כוס יין על הבר של הגג הסודי"
+                      sizes="(max-width: 768px) 50vw, 280px"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
                     />
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>

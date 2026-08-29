@@ -1,124 +1,34 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronUp, CalendarCheck } from 'lucide-react';
 import { HERO_SLIDES } from '../data/venueData';
 import { HeroSlide } from '../types';
-import logoImage from '../assets/images/secret_rooftop_logo_1787736669250.jpg';
+import { ResponsiveImage } from './ResponsiveImage';
+import logoImage from '../assets/images/secret_rooftop_logo_1787736669250.webp';
 
 interface HeroProps {
   onCheckAvailability: () => void;
 }
 
-function shouldEnableHeroVideo() {
-  if (typeof window === 'undefined') return false;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-
-  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-  if (connection?.saveData) return false;
-  if (connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g') return false;
-
-  return true;
-}
-
-const HeroBackground: React.FC<{
-  slide: HeroSlide;
-  isActive: boolean;
-  allowVideo: boolean;
-}> = ({ slide, isActive, allowVideo }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-
-  const isVideoSlide = slide.kind === 'video';
-  const showVideo = isVideoSlide && allowVideo && !videoFailed && isActive;
-
-  useEffect(() => {
-    if (!isVideoSlide || !isActive) {
-      videoRef.current?.pause();
-      return;
-    }
-
-    if (!allowVideo || videoFailed) return;
-
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.load();
-    video.play().catch(() => {
-      setVideoFailed(true);
-    });
-  }, [allowVideo, isActive, isVideoSlide, videoFailed]);
-
-  if (slide.kind === 'image') {
-    return (
-      <img
-        key={slide.id}
-        src={slide.image}
-        alt="The Secret Rooftop — נוף מהגג"
-        className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] hero-slide-enter"
-        fetchPriority={isActive ? 'high' : 'auto'}
-        decoding="async"
-      />
-    );
-  }
+const HeroBackground: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
+  const isLcp = slide.id === 'hero-aerial';
 
   return (
-    <div key={slide.id} className="absolute inset-0 w-full h-full hero-slide-enter">
-      <picture>
-        <source srcSet="/hero/rooftop-drone-poster.webp" type="image/webp" />
-        <img
-          src={slide.posterUrl}
-          alt="הגג הסודי — נוף מהרופטופ"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02]"
-          fetchPriority="high"
-          decoding="async"
-        />
-      </picture>
-
-      {showVideo && (
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] transition-opacity duration-700 ${
-            videoReady ? 'opacity-100' : 'opacity-0'
-          }`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster={slide.posterUrl}
-          onCanPlay={() => setVideoReady(true)}
-          onError={() => setVideoFailed(true)}
-          aria-hidden="true"
-        >
-          <source src={slide.webm} type="video/webm" />
-          <source src={slide.mp4} type="video/mp4" />
-        </video>
-      )}
-    </div>
+    <ResponsiveImage
+      key={slide.id}
+      image={slide.image}
+      alt={isLcp ? 'הגג הסודי — נוף מהרופטופ' : 'The Secret Rooftop — נוף מהגג'}
+      sizes="100vw"
+      className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] hero-slide-enter"
+      loading={isLcp ? 'eager' : 'lazy'}
+      fetchPriority={isLcp ? 'high' : 'auto'}
+    />
   );
 };
 
 export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [allowVideo, setAllowVideo] = useState(false);
 
   const activeSlide = HERO_SLIDES[currentSlide];
-
-  useEffect(() => {
-    if (!shouldEnableHeroVideo()) return;
-
-    const enableVideo = () => setAllowVideo(true);
-
-    if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(enableVideo, { timeout: 2500 });
-      return () => window.cancelIdleCallback(id);
-    }
-
-    const timer = setTimeout(enableVideo, 1800);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -128,11 +38,12 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
   }, []);
 
   useEffect(() => {
-    HERO_SLIDES.forEach((slide, index) => {
-      if (index === currentSlide || slide.kind !== 'image') return;
-      const img = new Image();
-      img.src = slide.image;
-    });
+    const nextSlide = HERO_SLIDES[(currentSlide + 1) % HERO_SLIDES.length];
+    const img = new Image();
+    img.src = nextSlide.image.src;
+    if (nextSlide.image.srcSet) {
+      img.srcset = nextSlide.image.srcSet;
+    }
   }, [currentSlide]);
 
   const goToSlide = useCallback((index: number) => {
@@ -149,12 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
         pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pt-6 md:pb-6"
     >
       <div className="absolute inset-0 z-0">
-        <HeroBackground
-          key={activeSlide.id}
-          slide={activeSlide}
-          isActive
-          allowVideo={allowVideo}
-        />
+        <HeroBackground key={activeSlide.id} slide={activeSlide} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/45 pointer-events-none" />
       </div>
 
@@ -165,10 +71,9 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
               <img
                 src={logoImage}
                 alt="הגג הסודי לוגו רשמי"
-                width={112}
-                height={112}
+                width={256}
+                height={256}
                 className="w-full h-full object-contain rounded-full bg-[#fdf9f4]"
-                fetchPriority="high"
                 decoding="async"
               />
             </div>
@@ -201,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
               <button
                 key={slide.id}
                 onClick={() => goToSlide(index)}
-                aria-label={slide.kind === 'video' ? 'עבור לסרטון הגג' : `עבור לתמונה ${index + 1}`}
+                aria-label={`עבור לתמונה ${index + 1}`}
                 className={`transition-all duration-300 cursor-pointer h-2 rounded-full ${
                   isActive
                     ? 'w-7 sm:w-8 bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]'

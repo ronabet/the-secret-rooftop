@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, MessageCircle, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { VenueAddressBlock } from './VenueAddressBlock';
@@ -30,6 +29,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isMobileDrawerOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileDrawerOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isMobileDrawerOpen]);
 
   // Expose top chrome height so the hero can fill the remaining first screen exactly
   useEffect(() => {
@@ -99,7 +115,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
           <a
             href="#"
             className="flex items-center group focus:outline-none transition-transform hover:scale-[1.02]"
-            aria-label="The Secret Rooftop"
           >
             <BrandLogo variant="badge" />
           </a>
@@ -135,6 +150,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
               id="header-drawer-toggle"
               onClick={() => setIsMobileDrawerOpen(true)}
               aria-label="פתח תפריט ניווט"
+              aria-expanded={isMobileDrawerOpen}
+              aria-controls="mobile-nav-drawer"
               className="p-1.5 text-[#18281e] hover:opacity-75 transition-opacity cursor-pointer focus:outline-none flex items-center justify-center"
             >
               <Menu className="w-7 h-7" aria-hidden="true" />
@@ -144,32 +161,27 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
       </header>
 
       {/* Side Navigation Drawer */}
-      <AnimatePresence>
-        {isMobileDrawerOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileDrawerOpen(false)}
-              className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
-            />
-
-            {/* Drawer Content */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[380px] bg-[#fdf9f4] z-50 shadow-2xl flex flex-col justify-between border-l border-[#18281e]/15 p-6 overflow-y-auto"
-            >
+      <div
+        className={`nav-drawer-backdrop ${isMobileDrawerOpen ? 'is-open' : ''}`}
+        onClick={() => setIsMobileDrawerOpen(false)}
+        aria-hidden="true"
+      />
+      <div
+        id="mobile-nav-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="תפריט ניווט"
+        aria-hidden={!isMobileDrawerOpen}
+        inert={!isMobileDrawerOpen}
+        className={`nav-drawer ${isMobileDrawerOpen ? 'is-open' : ''}`}
+      >
               <div>
                 {/* Drawer Header */}
                 <div className="flex justify-between items-center pb-5 border-b border-[#18281e]/10">
                   <BrandLogo variant="badge" />
                   <button
                     onClick={() => setIsMobileDrawerOpen(false)}
+                    aria-label="סגור תפריט ניווט"
                     className="p-2 rounded-full hover:bg-black/5 text-[#18281e] transition-colors"
                   >
                     <X className="w-5 h-5" />
@@ -230,10 +242,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                   <span>התייעצות מהירה בוואטסאפ</span>
                 </a>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      </div>
     </>
   );
 };

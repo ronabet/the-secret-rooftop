@@ -1,9 +1,11 @@
+import type { ImageVariantSet } from './data/imageManifest';
+
 export interface EventType {
   id: string;
   title: string;
   subtitle: string;
   description: string;
-  image: string;
+  image: ImageVariantSet;
   icon: string;
   capacity: string;
   highlights: string[];
@@ -13,7 +15,7 @@ export interface EventType {
 
 export interface GalleryImage {
   id: string;
-  url: string;
+  image: ImageVariantSet;
   title: string;
   category: 'all' | 'proposals' | 'sunset' | 'events' | 'culinary';
   description?: string;
@@ -37,20 +39,9 @@ export interface FaqItem {
 export type HeroImageSlide = {
   id: string;
   kind: 'image';
-  image: string;
+  image: ImageVariantSet;
   title: string;
   subtitle: string;
 };
 
-export type HeroVideoSlide = {
-  id: string;
-  kind: 'video';
-  mp4: string;
-  webm: string;
-  poster: string;
-  posterUrl: string;
-  title: string;
-  subtitle: string;
-};
-
-export type HeroSlide = HeroImageSlide | HeroVideoSlide;
+export type HeroSlide = HeroImageSlide;

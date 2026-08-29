@@ -117,3 +117,48 @@ body {
   animation: warmPulse 3s ease-in-out infinite;
 }
 
+.nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.nav-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 85%;
+  max-width: 380px;
+  z-index: 51;
+  background: #fdf9f4;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid rgb(24 40 30 / 0.15);
+  padding: 1.5rem;
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), visibility 0.3s;
+}
+
+.nav-drawer.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+

@@ -24,9 +24,9 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="w-full py-12 sm:py-16 px-4 sm:px-8 md:px-16 flex flex-col items-center gap-6 bg-[#f1ede8] text-[#18281e] font-sans-luxury text-base border-t border-[#18281e]/15 mb-20 md:mb-0">
       <div className="flex flex-col items-center text-center">
         <BrandLogo variant="image" size="lg" className="mb-3" />
-        <h2 className="font-serif-luxury text-2xl sm:text-3xl text-[#18281e] tracking-wider font-normal">
+        <p className="font-serif-luxury text-2xl sm:text-3xl text-[#18281e] tracking-wider font-normal">
           הגג הסודי • The Secret Rooftop
-        </h2>
+        </p>
         <p className="text-xs text-[#924a29] tracking-widest uppercase mt-1">
           הצעות נישואין • אירועי בוטיק • ערבי חברה | אשדוד
         </p>

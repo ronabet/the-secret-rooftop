@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Sparkles, SunMedium, Compass, Users, CalendarCheck } from 'lucide-react';
 import { VENUE_IMAGES, VENUE_STATS } from '../data/venueData';
 import { VenueAddressBlock } from './VenueAddressBlock';
+import { ResponsiveImage } from './ResponsiveImage';
 
 interface ExperienceProps {
   onOpenBooking: () => void;
@@ -90,13 +91,12 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full md:w-1/2 relative h-[400px] sm:h-[480px] md:h-[520px] rounded-xl overflow-hidden shadow-lg group"
           >
-            <img
-              src={VENUE_IMAGES.experience}
+            <ResponsiveImage
+              image={VENUE_IMAGES.experience}
               alt="The Secret Rooftop luxury boho space"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               referrerPolicy="no-referrer"
-              loading="lazy"
-              decoding="async"
             />
             <div className="absolute inset-0 border border-[#322206]/35 rounded-xl pointer-events-none" />
             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-lg text-white text-xs font-sans-luxury border border-white/20">

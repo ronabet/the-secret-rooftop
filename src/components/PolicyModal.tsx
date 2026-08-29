@@ -105,13 +105,14 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
           <div className="flex justify-between items-center pb-4 border-b border-[#18281e]/10 mb-4">
             <div className="flex items-center gap-2">
               {current.icon}
-              <h3 className="font-serif-luxury text-lg sm:text-xl text-[#18281e]">
+              <h2 className="font-serif-luxury text-lg sm:text-xl text-[#18281e]">
                 {current.title}
-              </h3>
+              </h2>
             </div>
             <button
               onClick={onClose}
               className="p-1 rounded-full hover:bg-black/5 text-[#18281e] transition-colors"
+              aria-label="סגור חלון"
             >
               <X className="w-5 h-5" />
             </button>

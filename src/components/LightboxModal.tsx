@@ -39,16 +39,21 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ image, onClose }) 
           </button>
 
           <img
-            src={image.url}
+            src={image.image.fullSrc}
+            srcSet={image.image.srcSet}
+            sizes="(max-width: 1024px) 100vw, 896px"
             alt={image.title}
+            width={image.image.width}
+            height={image.image.height}
             className="max-h-[75vh] w-auto rounded-xl object-contain shadow-2xl border border-white/20"
             referrerPolicy="no-referrer"
+            decoding="async"
           />
 
           <div className="w-full text-right mt-4 px-2 text-white">
-            <h3 className="font-serif-luxury text-xl sm:text-2xl font-normal drop-shadow">
+            <p className="font-serif-luxury text-xl sm:text-2xl font-normal drop-shadow">
               {image.title}
-            </h3>
+            </p>
             {image.description && (
               <p className="font-sans-luxury text-sm text-white/80 font-light mt-1">
                 {image.description}

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Eye, Camera } from 'lucide-react';
 import { GALLERY_IMAGES } from '../data/venueData';
 import { GalleryImage } from '../types';
+import { ResponsiveImage } from './ResponsiveImage';
 
 interface GalleryProps {
   onImageClick: (image: GalleryImage) => void;
@@ -85,12 +86,11 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
                 onClick={() => onImageClick(image)}
                 className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 bg-[#18281e] border border-[#322206]/15"
               >
-                <img
-                  src={image.url}
+                <ResponsiveImage
+                  image={image.image}
                   alt={image.title}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                  loading="lazy"
-                  decoding="async"
                 />
 
                 {/* Gradient Overlay */}
@@ -105,9 +105,9 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
 
                 {/* Bottom Caption */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-right z-10">
-                  <h4 className="font-serif-luxury text-base sm:text-lg text-white font-medium drop-shadow-sm">
+                  <h3 className="font-serif-luxury text-base sm:text-lg text-white font-medium drop-shadow-sm">
                     {image.title}
-                  </h4>
+                  </h3>
                   {image.description && (
                     <p className="font-sans-luxury text-xs text-white/80 font-light truncate mt-0.5">
                       {image.description}

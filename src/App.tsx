@@ -1,17 +1,17 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { Experience } from './components/Experience';
-import { EventTypes } from './components/EventTypes';
-import { Culinary } from './components/Culinary';
-import { ContactForm } from './components/ContactForm';
-import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
 
+const Experience = lazy(() => import('./components/Experience').then((m) => ({ default: m.Experience })));
+const EventTypes = lazy(() => import('./components/EventTypes').then((m) => ({ default: m.EventTypes })));
+const Culinary = lazy(() => import('./components/Culinary').then((m) => ({ default: m.Culinary })));
 const Gallery = lazy(() => import('./components/Gallery').then((m) => ({ default: m.Gallery })));
+const ContactForm = lazy(() => import('./components/ContactForm').then((m) => ({ default: m.ContactForm })));
+const FaqSection = lazy(() => import('./components/FaqSection').then((m) => ({ default: m.FaqSection })));
 const EventDetailModal = lazy(() =>
   import('./components/EventDetailModal').then((m) => ({ default: m.EventDetailModal }))
 );
@@ -19,6 +19,10 @@ const LightboxModal = lazy(() =>
   import('./components/LightboxModal').then((m) => ({ default: m.LightboxModal }))
 );
 const PolicyModal = lazy(() => import('./components/PolicyModal').then((m) => ({ default: m.PolicyModal })));
+
+const SectionFallback = ({ id, minHeight }: { id: string; minHeight: string }) => (
+  <div id={id} className={`${minHeight} bg-[#f7f3ee]`} aria-hidden="true" />
+);
 
 export default function App() {
   const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
@@ -30,6 +34,7 @@ export default function App() {
   useEffect(() => {
     const sections = ['venue', 'events', 'gallery', 'contact'];
     const observed = new Map<string, IntersectionObserverEntry>();
+    const attached = new Map<string, Element>();
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,12 +58,27 @@ export default function App() {
       { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.1, 0.25, 0.5] }
     );
 
-    sections.forEach((sectionId) => {
-      const el = document.getElementById(sectionId);
-      if (el) observer.observe(el);
-    });
+    const attach = () => {
+      sections.forEach((sectionId) => {
+        const el = document.getElementById(sectionId);
+        if (!el) return;
+        if (attached.get(sectionId) === el) return;
+        const previous = attached.get(sectionId);
+        if (previous) observer.unobserve(previous);
+        observer.observe(el);
+        attached.set(sectionId, el);
+      });
+    };
 
-    return () => observer.disconnect();
+    attach();
+    const interval = window.setInterval(attach, 250);
+    const timeout = window.setTimeout(() => window.clearInterval(interval), 10000);
+
+    return () => {
+      window.clearInterval(interval);
+      window.clearTimeout(timeout);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -79,16 +99,30 @@ export default function App() {
 
       <main className="flex-1">
         <Hero onCheckAvailability={() => scrollToSection('contact')} />
-        <Experience onOpenBooking={() => scrollToSection('contact')} />
-        <EventTypes onSelectEvent={(event) => setSelectedEvent(event)} />
-        <Culinary />
 
-        <Suspense fallback={<div className="py-16 sm:py-24 bg-[#fdf9f4]" aria-hidden="true" />}>
+        <Suspense fallback={<SectionFallback id="venue" minHeight="min-h-[480px]" />}>
+          <Experience onOpenBooking={() => scrollToSection('contact')} />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback id="events" minHeight="min-h-[640px]" />}>
+          <EventTypes onSelectEvent={(event) => setSelectedEvent(event)} />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback id="culinary" minHeight="min-h-[480px]" />}>
+          <Culinary />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback id="gallery" minHeight="min-h-[640px]" />}>
           <Gallery onImageClick={(image) => setSelectedImage(image)} />
         </Suspense>
 
-        <ContactForm preselectedEventType={preselectedEventType} />
-        <FaqSection />
+        <Suspense fallback={<SectionFallback id="contact" minHeight="min-h-[560px]" />}>
+          <ContactForm preselectedEventType={preselectedEventType} />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback id="faq" minHeight="min-h-[400px]" />}>
+          <FaqSection />
+        </Suspense>
       </main>
 
       <Footer

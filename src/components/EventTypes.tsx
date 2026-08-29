@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Sparkles, ArrowLeft, Heart, PartyPopper, Briefcase } from 'lucide-react';
 import { EVENT_TYPES } from '../data/venueData';
 import { EventType } from '../types';
+import { ResponsiveImage } from './ResponsiveImage';
 
 interface EventTypesProps {
   onSelectEvent: (event: EventType) => void;
@@ -55,12 +56,11 @@ export const EventTypes: React.FC<EventTypesProps> = ({ onSelectEvent }) => {
                 onClick={() => onSelectEvent(event)}
                 className="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-[#322206]/20 bg-[#18281e]"
               >
-                <img
-                  src={event.image}
+                <ResponsiveImage
+                  image={event.image}
                   alt={event.title}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:brightness-105"
-                  loading="lazy"
-                  decoding="async"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#18281e]/95 via-[#18281e]/45 to-transparent transition-opacity duration-300 group-hover:from-[#18281e]/95 group-hover:via-[#18281e]/60" />

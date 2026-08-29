@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Check, Users, Sparkles, Calendar, Heart, ShieldCheck, PartyPopper, Briefcase } from 'lucide-react';
 import { EventType } from '../types';
+import { ResponsiveImage } from './ResponsiveImage';
 
 const EVENT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   proposal: Heart,
@@ -46,12 +47,11 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
         >
           {/* Hero Image in Modal */}
           <div className="relative h-64 sm:h-72 w-full bg-black">
-            <img
-              src={event.image}
+            <ResponsiveImage
+              image={event.image}
               alt={event.title}
+              sizes="(max-width: 768px) 100vw, 768px"
               className="w-full h-full object-cover"
-              loading="lazy"
-              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#18281e] via-[#18281e]/40 to-transparent" />
 

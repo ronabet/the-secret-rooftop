@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../assets/images/secret_rooftop_logo_1787736669250.jpg';
+import logoImage from '../assets/images/secret_rooftop_logo_1787736669250.webp';
 
 interface BrandLogoProps {
   variant?: 'full' | 'compact' | 'badge' | 'image' | 'white';
@@ -27,6 +27,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         <img
           src={logoImage}
           alt="הגג הסודי - Secret Rooftop Logo"
+          width={256}
+          height={256}
           className="w-full h-full object-contain rounded-full drop-shadow-md"
           referrerPolicy="no-referrer"
         />
@@ -56,7 +58,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shrink-0 border border-[#18281e]/15 shadow-sm bg-[#fdf9f4]">
           <img
             src={logoImage}
-            alt="לוגו הגג הסודי"
+            alt=""
+            width={256}
+            height={256}
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -83,6 +87,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         <img
           src={logoImage}
           alt="הגג הסודי - Secret Rooftop"
+          width={256}
+          height={256}
           className="w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 object-contain rounded-full"
           referrerPolicy="no-referrer"
         />

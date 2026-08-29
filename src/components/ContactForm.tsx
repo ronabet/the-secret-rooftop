@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Send, CheckCircle2, MessageCircle, Phone, Sparkles, Calendar, Users, Navigation } from 'lucide-react';
 import { BookingFormData } from '../types';
@@ -10,8 +10,25 @@ interface ContactFormProps {
 
 const OWNER_WHATSAPP = '972522957958';
 
-// The select stores option values, and EventDetailModal preselects EVENT_TYPES ids,
-// so both spellings have to resolve to something the venue owner can read.
+const AVAILABLE_ADDONS = [
+  'עיצוב פרחים ובלונים',
+  'צלם סטילס ווידאו + רחפן',
+  'DJ ומערכת מוזיקה',
+  'בר אלכוהול מורחב',
+  'עמדת קינוחים מעוצבת',
+  'סגירת חורף מחוממת',
+];
+
+// Event cards use `boutique`; the select option is `private`. Map both so the
+// form shows the matching option and WhatsApp still gets the Hebrew label.
+const EVENT_TYPE_FORM_VALUES: Record<string, string> = {
+  proposal: 'proposal',
+  private: 'private',
+  boutique: 'private',
+  corporate: 'corporate',
+  other: 'other',
+};
+
 const EVENT_TYPE_LABELS: Record<string, string> = {
   proposal: 'הצעת נישואין (זוגי / אינטימי)',
   private: 'אירוע בוטיק / יום הולדת / ברית',
@@ -20,11 +37,16 @@ const EVENT_TYPE_LABELS: Record<string, string> = {
   other: 'אירוע אחר / התאמה מיוחדת',
 };
 
+const resolveEventTypeValue = (id?: string) => {
+  if (!id) return '';
+  return EVENT_TYPE_FORM_VALUES[id] ?? id;
+};
+
 export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }) => {
   const [formData, setFormData] = useState<BookingFormData>({
     fullName: '',
     phone: '',
-    eventType: preselectedEventType || '',
+    eventType: resolveEventTypeValue(preselectedEventType),
     estimatedDate: '',
     guestCount: 20,
     addons: [],
@@ -34,14 +56,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
   const [isSuccess, setIsSuccess] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const availableAddons = [
-    'עיצוב פרחים ובלונים',
-    'צלם סטילס ווידאו + רחפן',
-    'DJ ומערכת מוזיקה',
-    'בר אלכוהול מורחב',
-    'עמדת קינוחים מעוצבת',
-    'סגירת חורף מחוממת',
-  ];
+  useEffect(() => {
+    const next = resolveEventTypeValue(preselectedEventType);
+    if (!next) return;
+    setFormData((prev) =>
+      prev.eventType === next ? prev : { ...prev, eventType: next }
+    );
+  }, [preselectedEventType]);
 
   const toggleAddon = (addon: string) => {
     setFormData((prev) => ({
@@ -152,12 +173,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
                   {/* Full Name Field */}
                   <div>
-                    <label className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
+                    <label htmlFor="fullName" className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
                       שם מלא
                     </label>
                     <input
+                      id="fullName"
                       type="text"
                       required
+                      autoComplete="name"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="ישראל ישראלי"
@@ -167,12 +190,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
 
                   {/* Phone Field */}
                   <div>
-                    <label className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
+                    <label htmlFor="phone" className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
                       טלפון
                     </label>
                     <input
+                      id="phone"
                       type="tel"
                       required
+                      autoComplete="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="050-0000000"
@@ -183,10 +208,17 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
 
                   {/* Event Type Select */}
                   <div>
-                    <label className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
+                    <label
+                      id="eventType-label"
+                      htmlFor="eventType"
+                      className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold"
+                    >
                       סוג אירוע
                     </label>
                     <select
+                      id="eventType"
+                      name="eventType"
+                      aria-labelledby="eventType-label"
                       value={formData.eventType}
                       onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
                       className="w-full bg-transparent border-0 border-b border-[#18281e]/30 focus:border-[#924a29] focus:border-b-2 focus:ring-0 px-0 py-2.5 font-sans-luxury text-[#18281e] transition-colors text-base cursor-pointer"
@@ -201,10 +233,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
 
                   {/* Estimated Date Field */}
                   <div>
-                    <label className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
+                    <label htmlFor="estimatedDate" className="block font-sans-luxury text-xs text-[#434844] mb-2 uppercase tracking-widest font-semibold">
                       תאריך משוער
                     </label>
                     <input
+                      id="estimatedDate"
                       type="date"
                       value={formData.estimatedDate}
                       onChange={(e) => setFormData({ ...formData, estimatedDate: e.target.value })}
@@ -231,12 +264,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                     >
                       <div>
                         <div className="flex justify-between text-xs text-[#434844] mb-1.5">
-                          <span>כמות אורחים משוערת (עד 150 איש):</span>
+                          <label htmlFor="guestCount">כמות אורחים משוערת (עד 150 איש):</label>
                           <strong className="text-[#18281e] font-semibold text-sm">
                             {formData.guestCount} מוזמנים
                           </strong>
                         </div>
                         <input
+                          id="guestCount"
                           type="range"
                           min="2"
                           max="150"
@@ -248,9 +282,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                       </div>
 
                       <div>
-                        <label className="block text-xs text-[#434844] mb-2">תוספות מבוקשות לאירוע:</label>
+                        <span className="block text-xs text-[#434844] mb-2">תוספות מבוקשות לאירוע:</span>
                         <div className="flex flex-wrap gap-2">
-                          {availableAddons.map((addon) => {
+                          {AVAILABLE_ADDONS.map((addon) => {
                             const isSelected = formData.addons.includes(addon);
                             return (
                               <button
@@ -271,8 +305,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                       </div>
 
                       <div>
-                        <label className="block text-xs text-[#434844] mb-1">הערות ובקשות מיוחדות:</label>
+                        <label htmlFor="notes" className="block text-xs text-[#434844] mb-1">הערות ובקשות מיוחדות:</label>
                         <textarea
+                          id="notes"
                           rows={2}
                           value={formData.notes}
                           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
