@@ -40,24 +40,23 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
               </h2>
 
               <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-8 leading-relaxed font-light">
-                אנו מציעים תפריט חלבי עשיר ומוקפד, המוכן מחומרי הגלם הטריים והאיכותיים ביותר. המנות מוגשות בעיצוב אלגנטי המשתלב עם האווירה היוקרתית של המקום.
+                התפריט חלבי ומתחלף בהתאם לביקוש ולאופי האירוע — מגבינות בוטיק ועד עמדות קבלת פנים מעוצבות, בהגשה אלגנטית המשתלבת עם האווירה היוקרתית של המקום.
               </p>
 
-              {/* 3 Iconic Bullets matching HTML */}
               <ul className="space-y-4 font-sans-luxury text-base sm:text-lg text-[#1c1c19] mb-8">
                 <li className="flex items-center gap-3.5 p-2.5 rounded-lg hover:bg-white/40 transition-colors">
                   <span className="w-10 h-10 rounded-full bg-[#924a29]/10 flex items-center justify-center text-[#924a29] shrink-0">
-                    <span className="material-symbols-outlined text-xl">restaurant</span>
+                    <Utensils className="w-5 h-5" />
                   </span>
                   <div>
-                    <strong className="font-semibold block text-[#18281e]">תפריט חלבי עשיר ומגוון</strong>
-                    <span className="text-xs sm:text-sm text-[#434844] font-light">גבינות בוטיק, דגים טריים, פוקאצ׳ות טאבון ומנות גורמה</span>
+                    <strong className="font-semibold block text-[#18281e]">תפריט חלבי גמיש</strong>
+                    <span className="text-xs sm:text-sm text-[#434844] font-light">התפריט מתחלף בהתאם לביקוש, לאופי האירוע ולמספר האורחים</span>
                   </div>
                 </li>
 
                 <li className="flex items-center gap-3.5 p-2.5 rounded-lg hover:bg-white/40 transition-colors">
                   <span className="w-10 h-10 rounded-full bg-[#924a29]/10 flex items-center justify-center text-[#924a29] shrink-0">
-                    <span className="material-symbols-outlined text-xl">local_bar</span>
+                    <Wine className="w-5 h-5" />
                   </span>
                   <div>
                     <strong className="font-semibold block text-[#18281e]">בר אלכוהול פרימיום תוצרת חוץ</strong>
@@ -67,7 +66,7 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
 
                 <li className="flex items-center gap-3.5 p-2.5 rounded-lg hover:bg-white/40 transition-colors">
                   <span className="w-10 h-10 rounded-full bg-[#924a29]/10 flex items-center justify-center text-[#924a29] shrink-0">
-                    <span className="material-symbols-outlined text-xl">tapas</span>
+                    <Sparkles className="w-5 h-5" />
                   </span>
                   <div>
                     <strong className="font-semibold block text-[#18281e]">עמדות קבלת פנים מעוצבות</strong>
@@ -89,7 +88,7 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
 
                 <div className="text-xs text-[#434844] font-sans-luxury flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-[#924a29]" />
-                  <span>כשרות מהדרין / רבנות</span>
+                  <span>כשר למהדרין</span>
                 </div>
               </div>
             </div>
@@ -103,7 +102,8 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
                       src={VENUE_IMAGES.cheesePlatter}
                       alt="מגש גבינות של הגג הסודי"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>
@@ -118,7 +118,8 @@ export const Culinary: React.FC<CulinaryProps> = ({ onOpenMenu }) => {
                       src={VENUE_IMAGES.cocktail}
                       alt="כוס יין על הבר של הגג הסודי"
                       className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>

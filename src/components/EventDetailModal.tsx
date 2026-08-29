@@ -1,7 +1,13 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, Users, Sparkles, Calendar, Heart, ShieldCheck } from 'lucide-react';
+import { X, Check, Users, Sparkles, Calendar, Heart, ShieldCheck, PartyPopper, Briefcase } from 'lucide-react';
 import { EventType } from '../types';
+
+const EVENT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  proposal: Heart,
+  boutique: PartyPopper,
+  corporate: Briefcase,
+};
 
 interface EventDetailModalProps {
   event: EventType | null;
@@ -15,6 +21,8 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
   onBookEvent,
 }) => {
   if (!event) return null;
+
+  const EventIcon = EVENT_ICONS[event.id] ?? Sparkles;
 
   return (
     <AnimatePresence>
@@ -42,7 +50,8 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
               src={event.image}
               alt={event.title}
               className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#18281e] via-[#18281e]/40 to-transparent" />
 
@@ -58,7 +67,7 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
             {/* Event Header details on top of image */}
             <div className="absolute bottom-6 right-6 left-6 text-white">
               <div className="flex items-center gap-2 text-[#fcdeb5] text-xs font-semibold uppercase tracking-widest mb-1.5">
-                <span className="material-symbols-outlined text-lg">{event.icon}</span>
+                <EventIcon className="w-4 h-4" />
                 <span>{event.capacity}</span>
               </div>
               <h2 className="font-serif-luxury text-3xl sm:text-4xl font-normal drop-shadow-md">
@@ -139,7 +148,7 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({
                 className="flex-1 sm:flex-none bg-[#18281e] text-[#fdf9f4] px-7 py-3 rounded-lg text-sm font-semibold hover:bg-[#2d3e33] transition-colors cursor-pointer text-center flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4 text-[#fea279]" />
-                <span>שריון תאריך לאירוע זה</span>
+                <span>בדיקת תאריך פנוי</span>
               </button>
             </div>
           </div>

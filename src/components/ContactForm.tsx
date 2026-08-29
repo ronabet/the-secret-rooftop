@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Send, CheckCircle2, MessageCircle, Phone, Sparkles, User, Calendar, Users } from 'lucide-react';
 import { BookingFormData } from '../types';
+import { VENUE_ADDRESS } from '../data/venueData';
 
 interface ContactFormProps {
   preselectedEventType?: string;
@@ -112,16 +113,19 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#18281e]/5 text-[#924a29] text-xs font-semibold uppercase tracking-wider mb-3 border border-[#924a29]/15">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>שריון תאריכים ותיאום סיור</span>
+            <span>בדיקת תאריך פנוי</span>
           </div>
 
-          {/* Headline matching HTML exact */}
           <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl text-[#18281e] mb-3 font-normal">
             בואו נפיק לכם אירוע בלתי נשכח
           </h2>
 
-          <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-10 font-light">
-            השאירו פרטים ונחזור אליכם בהקדם לתיאום פגישת היכרות.
+          <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-4 font-light">
+            השאירו פרטים ונחזור אליכם בהקדם לבדיקת תאריך פנוי ותיאום פגישה.
+          </p>
+
+          <p className="font-sans-luxury text-sm text-[#924a29] mb-10 font-medium">
+            {VENUE_ADDRESS.full}
           </p>
         </motion.div>
 
@@ -218,7 +222,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                     >
                       <div>
                         <div className="flex justify-between text-xs text-[#434844] mb-1.5">
-                          <span>כמות אורחים משוערת:</span>
+                          <span>כמות אורחים משוערת (עד 150 איש):</span>
                           <strong className="text-[#18281e] font-semibold text-sm">
                             {formData.guestCount} מוזמנים
                           </strong>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, MessageCircle, MapPin, Calendar, Utensils, Heart, Sparkles, Clock } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, MapPin, Calendar, Utensils, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { VENUE_ADDRESS } from '../data/venueData';
 
 interface HeaderProps {
   onOpenMenu: () => void;
@@ -132,9 +133,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
               aria-label="פתח תפריט ניווט"
               className="p-1.5 text-[#18281e] hover:opacity-75 transition-opacity cursor-pointer focus:outline-none flex items-center justify-center"
             >
-              <span className="material-symbols-outlined text-[#18281e] text-3xl">
-                menu
-              </span>
+              <Menu className="w-7 h-7" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -209,7 +208,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                 <div className="bg-[#f7f3ee] p-4 rounded-xl border border-[#322206]/15 space-y-3 mb-6">
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>מתחם הגג הסודי, אשדוד - גג פתוח 360° מול נוף העיר</span>
+                    <span>{VENUE_ADDRESS.street}</span>
+                  </div>
+                  <div className="flex items-start gap-2.5 text-xs text-[#434844]">
+                    <MapPin className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
+                    <span>{VENUE_ADDRESS.parking}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Clock className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
@@ -217,7 +220,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Sparkles className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>600 מ״ר | כשרות מהדרין | חניה צמודה | נגישות מלאה</span>
+                    <span>600 מ״ר | כשר למהדרין | עד 150 איש | נגישות מלאה</span>
                   </div>
                 </div>
               </div>
@@ -231,8 +234,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMenu, onOpenBooking }) => 
                   }}
                   className="w-full bg-[#18281e] text-[#fdf9f4] py-3.5 rounded-lg font-sans-luxury font-semibold text-sm hover:bg-[#2d3e33] transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
                 >
-                  <Calendar className="w-4 h-4 text-[#fea279]" />
-                  <span>בדיקת זמינות ותיאום פגישה</span>
+                  <CalendarCheck className="w-4 h-4 text-[#fea279]" />
+                  <span>בדיקת תאריך פנוי</span>
                 </button>
 
                 <a

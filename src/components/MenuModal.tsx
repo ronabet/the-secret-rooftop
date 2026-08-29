@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Utensils, Wine, Sparkles, Check, Download, Phone } from 'lucide-react';
 import { MENU_CATEGORIES } from '../data/venueData';
 
+const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  'dairy-gourmet': Utensils,
+  'cocktails-bar': Wine,
+  'welcome-stations': Sparkles,
+};
+
 interface MenuModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -51,7 +57,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
                 תפריט השף & בר הקוקטיילים
               </h2>
               <p className="text-white/75 text-xs sm:text-sm font-sans-luxury mt-1 font-light">
-                כשרות מהדרין / רבנות • חומרי גלם מקומיים טריים • בר תוצרת חוץ
+                כשר למהדרין • תפריט חלבי המתחלף בהתאם לאירוע • בר תוצרת חוץ
               </p>
             </div>
 
@@ -68,6 +74,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
           <div className="flex border-b border-[#18281e]/15 bg-[#f1ede8] overflow-x-auto px-4 sm:px-8 py-2 gap-2">
             {MENU_CATEGORIES.map((cat) => {
               const isActive = cat.id === activeTab;
+              const CategoryIcon = CATEGORY_ICONS[cat.id] ?? Utensils;
               return (
                 <button
                   key={cat.id}
@@ -78,9 +85,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
                       : 'text-[#434844] hover:bg-white/50 font-medium'
                   }`}
                 >
-                  <span className="material-symbols-outlined text-base">
-                    {cat.icon}
-                  </span>
+                  <CategoryIcon className="w-4 h-4" />
                   <span>{cat.name}</span>
                 </button>
               );

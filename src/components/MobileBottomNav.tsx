@@ -1,4 +1,5 @@
 import React from 'react';
+import { Home, Sparkles, Heart, CalendarCheck } from 'lucide-react';
 
 interface MobileBottomNavProps {
   activeSection: string;
@@ -12,37 +13,34 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   const navItems = [
     {
       id: 'venue',
-      label: 'VENUE',
-      icon: 'roofing',
-      href: '#venue',
+      label: 'המתחם',
+      icon: Home,
     },
     {
       id: 'gallery',
-      label: 'GALLERY',
-      icon: 'auto_awesome',
-      href: '#gallery',
+      label: 'גלריה',
+      icon: Sparkles,
     },
     {
       id: 'events',
-      label: 'EVENTS',
-      icon: 'favorite',
-      href: '#events',
+      label: 'אירועים',
+      icon: Heart,
     },
     {
       id: 'contact',
-      label: 'CONTACT',
-      icon: 'event_available',
-      href: '#contact',
+      label: 'צרו קשר',
+      icon: CalendarCheck,
     },
   ];
 
   return (
     <nav
-      aria-label="Mobile Navigation"
-      className="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center h-18 px-3 md:hidden bg-[#fdf9f4]/95 backdrop-blur-lg text-[#18281e] font-sans-luxury text-[11px] uppercase tracking-widest border-t border-[#322206]/15 shadow-2xl"
+      aria-label="ניווט מובייל"
+      className="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center h-18 px-3 md:hidden bg-[#fdf9f4]/95 backdrop-blur-lg text-[#18281e] font-sans-luxury text-[11px] border-t border-[#322206]/15 shadow-2xl"
     >
       {navItems.map((item) => {
         const isActive = activeSection === item.id;
+        const Icon = item.icon;
         return (
           <button
             key={item.id}
@@ -53,14 +51,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                 : 'text-[#434844]/70 hover:text-[#18281e]'
             }`}
           >
-            <span
-              className={`material-symbols-outlined mb-0.5 text-2xl ${
-                isActive ? 'fill-1 text-[#924a29]' : ''
-              }`}
-            >
-              {item.icon}
-            </span>
-            <span className="leading-tight text-[10px] tracking-wider">{item.label}</span>
+            <Icon className={`mb-0.5 w-6 h-6 ${isActive ? 'text-[#924a29]' : ''}`} />
+            <span className="leading-tight text-[10px] tracking-wide">{item.label}</span>
           </button>
         );
       })}
