@@ -52,13 +52,15 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
           </motion.div>
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mt-8">
+          <div className="flex flex-wrap justify-center gap-2 mt-8" role="group" aria-label="סינון גלריה">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
                 <button
                   key={cat.id}
+                  type="button"
                   onClick={() => setActiveCategory(cat.id)}
+                  aria-pressed={isActive}
                   className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-sans-luxury transition-all duration-300 cursor-pointer ${
                     isActive
                       ? 'bg-[#18281e] text-[#fdf9f4] font-semibold shadow-sm'
@@ -73,51 +75,54 @@ export const Gallery: React.FC<GalleryProps> = ({ onImageClick }) => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 list-none p-0 m-0">
           <AnimatePresence>
             {filteredImages.map((image, index) => (
-              <motion.div
+              <motion.li
                 key={image.id}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: Math.min(index, 6) * 0.05 }}
-                onClick={() => onImageClick(image)}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 bg-[#18281e] border border-[#322206]/15"
+                className="group relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 bg-[#18281e] border border-[#322206]/15"
               >
-                <ResponsiveImage
-                  image={image.image}
-                  alt={image.title}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                />
+                <button
+                  type="button"
+                  onClick={() => onImageClick(image)}
+                  aria-label={`פתח תמונה: ${image.title}`}
+                  className="absolute inset-0 w-full h-full cursor-pointer text-right"
+                >
+                  <ResponsiveImage
+                    image={image.image}
+                    alt=""
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                  />
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#18281e]/90 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#18281e]/90 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" aria-hidden="true" />
 
-                {/* Center View Icon */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="w-12 h-12 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center text-white border border-white/40 shadow-lg">
-                    <Eye className="w-5 h-5" />
-                  </span>
-                </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
+                    <span className="w-12 h-12 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center text-white border border-white/40 shadow-lg">
+                      <Eye className="w-5 h-5" />
+                    </span>
+                  </div>
 
-                {/* Bottom Caption */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-right z-10">
-                  <h3 className="font-serif-luxury text-base sm:text-lg text-white font-medium drop-shadow-sm">
-                    {image.title}
-                  </h3>
-                  {image.description && (
-                    <p className="font-sans-luxury text-xs text-white/80 font-light truncate mt-0.5">
-                      {image.description}
-                    </p>
-                  )}
-                </div>
-              </motion.div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-right z-10 pointer-events-none">
+                    <h3 className="font-serif-luxury text-base sm:text-lg text-white font-medium drop-shadow-sm">
+                      {image.title}
+                    </h3>
+                    {image.description && (
+                      <p className="font-sans-luxury text-xs text-white/80 font-light truncate mt-0.5">
+                        {image.description}
+                      </p>
+                    )}
+                  </div>
+                </button>
+              </motion.li>
             ))}
           </AnimatePresence>
-        </div>
+        </ul>
       </div>
     </section>
   );

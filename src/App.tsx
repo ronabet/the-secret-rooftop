@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { MobileBottomNav } from './components/MobileBottomNav';
+import { SkipToContent } from './components/SkipToContent';
 import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
 
@@ -96,9 +97,10 @@ export default function App() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#fdf9f4] text-[#1c1c19] flex flex-col antialiased selection:bg-[#fcdeb5] selection:text-[#271901] text-right">
+      <SkipToContent />
       <Header onOpenBooking={() => scrollToSection('contact')} />
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Hero onCheckAvailability={() => scrollToSection('contact')} />
 
         <Suspense fallback={<SectionFallback id="venue" minHeight="min-h-[480px]" />}>

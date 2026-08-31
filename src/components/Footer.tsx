@@ -52,6 +52,7 @@ export const Footer: React.FC<FooterProps> = ({
           <Phone className="w-4 h-4" />
         </a>
         <button
+          type="button"
           onClick={scrollToTop}
           aria-label="חזרה למעלה"
           className="w-9 h-9 rounded-full bg-[#fdf9f4] border border-[#18281e]/15 flex items-center justify-center hover:text-[#924a29] hover:border-[#924a29] transition-colors cursor-pointer"
@@ -62,24 +63,28 @@ export const Footer: React.FC<FooterProps> = ({
 
       <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-[#434844] font-medium pt-2">
         <button
+          type="button"
           onClick={onOpenPrivacy}
           className="hover:text-[#924a29] transition-colors cursor-pointer"
         >
           מדיניות פרטיות
         </button>
         <button
+          type="button"
           onClick={onOpenTerms}
           className="hover:text-[#924a29] transition-colors cursor-pointer"
         >
           תנאי שימוש
         </button>
         <button
+          type="button"
           onClick={onOpenRules}
           className="hover:text-[#924a29] transition-colors cursor-pointer"
         >
           כללי המתחם
         </button>
         <button
+          type="button"
           onClick={onOpenAccessibility}
           className="hover:text-[#924a29] transition-colors cursor-pointer"
         >

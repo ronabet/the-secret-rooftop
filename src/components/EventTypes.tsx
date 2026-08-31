@@ -47,55 +47,61 @@ export const EventTypes: React.FC<EventTypesProps> = ({ onSelectEvent }) => {
           {EVENT_TYPES.map((event, index) => {
             const EventIcon = EVENT_ICONS[event.id] ?? Sparkles;
             return (
-              <motion.div
+              <motion.article
                 key={event.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: index * 0.15 }}
-                onClick={() => onSelectEvent(event)}
-                className="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 border border-[#322206]/20 bg-[#18281e]"
+                className="group relative aspect-[4/5] rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-[#322206]/20 bg-[#18281e]"
               >
-                <ResponsiveImage
-                  image={event.image}
-                  alt={event.title}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:brightness-105"
-                />
+                <button
+                  type="button"
+                  onClick={() => onSelectEvent(event)}
+                  aria-label={`פתח פרטים על ${event.title}`}
+                  className="absolute inset-0 w-full h-full cursor-pointer text-right"
+                >
+                  <ResponsiveImage
+                    image={event.image}
+                    alt=""
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:brightness-105"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#18281e]/95 via-[#18281e]/45 to-transparent transition-opacity duration-300 group-hover:from-[#18281e]/95 group-hover:via-[#18281e]/60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#18281e]/95 via-[#18281e]/45 to-transparent transition-opacity duration-300 group-hover:from-[#18281e]/95 group-hover:via-[#18281e]/60" aria-hidden="true" />
 
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="bg-black/45 backdrop-blur-md border border-white/20 text-[#fcdeb5] text-[11px] font-sans-luxury font-medium px-3 py-1 rounded-full">
-                    {event.capacity}
-                  </span>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-right z-10 flex flex-col justify-end">
-                  <div className="flex items-center gap-2.5 mb-2 text-[#fcdeb5]">
-                    <EventIcon className="w-7 h-7 sm:w-8 sm:h-8 text-[#fea279]" />
-                    <h3 className="font-serif-luxury text-2xl sm:text-3xl text-white font-normal drop-shadow">
-                      {event.title}
-                    </h3>
-                  </div>
-
-                  <p className="font-sans-luxury text-sm sm:text-base text-white/85 leading-relaxed font-light transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 opacity-90 group-hover:opacity-100 mb-3">
-                    {event.description}
-                  </p>
-
-                  <div className="flex items-center justify-between pt-3 border-t border-white/15 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-3 group-hover:translate-y-0">
-                    <span className="text-xs font-sans-luxury text-[#fcdeb5] font-semibold flex items-center gap-1">
-                      <span>פרטי חבילה וסגנונות עיצוב</span>
-                      <ArrowLeft className="w-3.5 h-3.5" />
+                  <div className="absolute top-4 right-4 z-10 pointer-events-none">
+                    <span className="bg-black/45 backdrop-blur-md border border-white/20 text-[#fcdeb5] text-[11px] font-sans-luxury font-medium px-3 py-1 rounded-full">
+                      {event.capacity}
                     </span>
-                    {event.startingPrice && (
-                      <span className="text-xs text-white/70 font-sans-luxury">
-                        {event.startingPrice}
-                      </span>
-                    )}
                   </div>
-                </div>
-              </motion.div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-right z-10 flex flex-col justify-end pointer-events-none">
+                    <div className="flex items-center gap-2.5 mb-2 text-[#fcdeb5]">
+                      <EventIcon className="w-7 h-7 sm:w-8 sm:h-8 text-[#fea279]" aria-hidden="true" />
+                      <h3 className="font-serif-luxury text-2xl sm:text-3xl text-white font-normal drop-shadow">
+                        {event.title}
+                      </h3>
+                    </div>
+
+                    <p className="font-sans-luxury text-sm sm:text-base text-white/85 leading-relaxed font-light transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 opacity-90 group-hover:opacity-100 mb-3">
+                      {event.description}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-3 border-t border-white/15 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 group-focus-within:translate-y-0">
+                      <span className="text-xs font-sans-luxury text-[#fcdeb5] font-semibold flex items-center gap-1">
+                        <span>פרטי חבילה וסגנונות עיצוב</span>
+                        <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
+                      </span>
+                      {event.startingPrice && (
+                        <span className="text-xs text-white/70 font-sans-luxury">
+                          {event.startingPrice}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              </motion.article>
             );
           })}
         </div>
