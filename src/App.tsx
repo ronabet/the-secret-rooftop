@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SkipToContent } from './components/SkipToContent';
+import { AccessibilityWidget } from './components/AccessibilityWidget';
 import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
 
@@ -146,6 +147,8 @@ export default function App() {
           scrollToSection(sectionId);
         }}
       />
+
+      <AccessibilityWidget onOpenStatement={() => setPolicyModalType('accessibility')} />
 
       <a
         href="https://wa.me/972522957958?text=שלום%2C%20הגעתי%20דרך%20אתר%20הגג%20הסודי%20ואשמח%20לפרטים"
