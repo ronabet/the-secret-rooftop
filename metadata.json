@@ -1,6 +1,6 @@
 {
   "name": "The Secret Rooftop",
-  "description": "מתחם אירועים יוקרתי, הצעות נישואין ואירועי בוטיק על גג מול הים באשדוד - The Secret Rooftop Ashdod",
+  "description": "מתחם אירועים ייחודי, הצעות נישואין ואירועי בוטיק על גג מול הים באשדוד - The Secret Rooftop Ashdod",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -38,7 +38,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
             </h2>
 
             <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-5 leading-relaxed font-light">
-              ברוכים הבאים לגג הסודי – פנינה נסתרת בלב אשדוד. עיצבנו חלל אורגני ויוקרתי המשלב אלמנטים של עץ טבעי, צמחייה עשירה ותאורה רכה המדמה את שעת הזהב.
+              ברוכים הבאים לגג הסודי – פנינה נסתרת בלב אשדוד. עיצבנו חלל אורגני וייחודי המשלב אלמנטים של עץ טבעי, צמחייה עשירה ותאורה רכה המדמה את שעת הזהב.
             </p>
 
             <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-6 leading-relaxed font-light">
@@ -93,7 +93,7 @@ export const Experience: React.FC<ExperienceProps> = ({ onOpenBooking }) => {
           >
             <ResponsiveImage
               image={VENUE_IMAGES.experience}
-              alt="The Secret Rooftop luxury boho space"
+              alt="The Secret Rooftop unique boho space"
               sizes="(max-width: 768px) 100vw, 50vw"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               referrerPolicy="no-referrer"

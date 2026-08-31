@@ -10,7 +10,7 @@ interface HeroProps {
 }
 
 const HeroBackground: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
-  const isLcp = slide.id === 'hero-aerial';
+  const isLcp = slide.id === 'hero-sunset';
 
   return (
     <ResponsiveImage

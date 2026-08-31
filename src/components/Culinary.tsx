@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Utensils, Wine, Award, ChefHat, Sparkles } from 'lucide-react';
+import { Utensils, Wine, Award, Sparkles } from 'lucide-react';
 import { VENUE_IMAGES } from '../data/venueData';
 import { ResponsiveImage } from './ResponsiveImage';
 
@@ -28,8 +28,8 @@ export const Culinary: React.FC = () => {
             {/* Text & Culinary Highlights (Hebrew Right) */}
             <div className="w-full md:w-1/2 text-right">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#18281e]/5 text-[#924a29] text-xs font-semibold uppercase tracking-wider mb-4 border border-[#924a29]/15">
-                <ChefHat className="w-3.5 h-3.5" />
-                <span>שף & מיקסולוגיה</span>
+                <Utensils className="w-3.5 h-3.5" />
+                <span>תפריט ובר בהתאמה אישית</span>
               </div>
 
               <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl text-[#18281e] mb-6 font-normal leading-tight">
@@ -37,7 +37,7 @@ export const Culinary: React.FC = () => {
               </h2>
 
               <p className="font-sans-luxury text-base sm:text-lg text-[#434844] mb-8 leading-relaxed font-light">
-                התפריט חלבי ומתחלף בהתאם לביקוש ולאופי האירוע — מגבינות בוטיק ועד עמדות קבלת פנים מעוצבות, בהגשה אלגנטית המשתלבת עם האווירה היוקרתית של המקום.
+                התפריט חלבי ומתחלף בהתאם לביקוש ולאופי האירוע — מגבינות מובחרות ועד עמדות קבלת פנים מעוצבות, בהגשה מוקפדת המשתלבת עם האווירה הייחודית של המקום.
               </p>
 
               <ul className="space-y-4 font-sans-luxury text-base sm:text-lg text-[#1c1c19] mb-8">
@@ -56,7 +56,7 @@ export const Culinary: React.FC = () => {
                     <Wine className="w-5 h-5" />
                   </span>
                   <div>
-                    <strong className="font-semibold block text-[#18281e]">בר אלכוהול פרימיום תוצרת חוץ</strong>
+                    <strong className="font-semibold block text-[#18281e]">בר אלכוהול בהתאמה אישית</strong>
                     <span className="text-xs sm:text-sm text-[#434844] font-light">קוקטיילים מעוצבים, יינות מובחרים ומשקאות איכות</span>
                   </div>
                 </li>
@@ -94,7 +94,7 @@ export const Culinary: React.FC = () => {
                     <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
                   </div>
                   <p className="text-[11px] text-[#434844] text-right font-sans-luxury font-light">
-                    אירוח שף: גבינות מובחרות ופירות העונה
+                    אירוח: גבינות מובחרות ופירות העונה
                   </p>
                 </div>
 
