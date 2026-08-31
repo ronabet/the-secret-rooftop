@@ -1,4 +1,5 @@
 import React, { useEffect, useId, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Accessibility,
   X,
@@ -120,7 +121,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({ onOpen
   const fontScaleLabel =
     preferences.fontScale === 0 ? 'רגיל' : preferences.fontScale === 1 ? 'גדול' : 'גדול מאוד';
 
-  return (
+  const widget = (
     <div className="a11y-widget fixed right-4 bottom-[calc(5.75rem+env(safe-area-inset-bottom,0px))] md:right-5 md:bottom-6 flex flex-col items-end gap-3">
       {isOpen && (
         <div
@@ -244,11 +245,12 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({ onOpen
         aria-controls={panelId}
         aria-haspopup="dialog"
         aria-label={isOpen ? 'סגור תפריט נגישות' : 'פתח תפריט נגישות'}
-        className="a11y-widget-trigger bg-[#18281e] text-[#fdf9f4] px-4 py-3 rounded-full shadow-2xl hover:bg-[#2d3e33] active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+        className="a11y-widget-trigger bg-[#18281e] text-[#fdf9f4] p-2.5 rounded-full shadow-lg hover:bg-[#2d3e33] active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer"
       >
-        <Accessibility className="w-6 h-6 shrink-0" aria-hidden="true" />
-        <span className="font-sans-luxury text-xs font-bold tracking-wide">נגישות</span>
+        <Accessibility className="w-5 h-5 shrink-0" aria-hidden="true" />
       </button>
     </div>
   );
+
+  return createPortal(widget, document.body);
 };
