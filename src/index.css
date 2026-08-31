@@ -308,9 +308,14 @@ html.a11y-high-contrast .a11y-widget-trigger {
 }
 
 .a11y-widget-trigger {
-  min-width: 3rem;
-  min-height: 3rem;
-  border: 2px solid #fcdeb5;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1.5px solid #fcdeb5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+/* Widget lives outside #root (portal) so filters on #root don't break position:fixed */
+html.a11y-readable-font .a11y-widget :where(p, span, button) {
+  font-family: var(--font-sans) !important;
 }
 
