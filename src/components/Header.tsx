@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone, MessageCircle, Sparkles, Clock, CalendarCheck } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { VenueAddressBlock } from './VenueAddressBlock';
+import { useDialogFocus } from '../hooks/useDialogFocus';
 
 interface HeaderProps {
   onOpenBooking: () => void;
@@ -12,6 +13,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const bannerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const drawerToggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useDialogFocus(isMobileDrawerOpen, () => setIsMobileDrawerOpen(false));
 
   useEffect(() => {
     let ticking = false;
@@ -32,18 +35,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
 
   useEffect(() => {
     if (!isMobileDrawerOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsMobileDrawerOpen(false);
-    };
-
-    window.addEventListener('keydown', onKeyDown);
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', onKeyDown);
+      drawerToggleRef.current?.focus();
     };
   }, [isMobileDrawerOpen]);
 
@@ -120,10 +113,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-7" aria-label="ניווט ראשי">
             {navLinks.map((link) => (
               <button
                 key={link.href}
+                type="button"
                 onClick={() => handleNavClick(link.href)}
                 className="text-[#434844] hover:text-[#18281e] font-sans-luxury text-sm font-medium transition-colors cursor-pointer relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#924a29] hover:after:w-full after:transition-all"
               >
@@ -147,7 +141,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
 
             {/* Mobile Drawer Trigger Button */}
             <button
+              ref={drawerToggleRef}
               id="header-drawer-toggle"
+              type="button"
               onClick={() => setIsMobileDrawerOpen(true)}
               aria-label="פתח תפריט ניווט"
               aria-expanded={isMobileDrawerOpen}
@@ -167,12 +163,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
         aria-hidden="true"
       />
       <div
+        ref={drawerRef}
         id="mobile-nav-drawer"
         role="dialog"
         aria-modal="true"
         aria-label="תפריט ניווט"
         aria-hidden={!isMobileDrawerOpen}
-        inert={!isMobileDrawerOpen}
+        inert={!isMobileDrawerOpen ? true : undefined}
+        tabIndex={-1}
         className={`nav-drawer ${isMobileDrawerOpen ? 'is-open' : ''}`}
       >
               <div>
@@ -180,6 +178,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                 <div className="flex justify-between items-center pb-5 border-b border-[#18281e]/10">
                   <BrandLogo variant="badge" />
                   <button
+                    type="button"
                     onClick={() => setIsMobileDrawerOpen(false)}
                     aria-label="סגור תפריט ניווט"
                     className="p-2 rounded-full hover:bg-black/5 text-[#18281e] transition-colors"
@@ -189,10 +188,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                 </div>
 
                 {/* Navigation links */}
-                <div className="py-6 space-y-2">
+                <nav aria-label="ניווט מובייל" className="py-6 space-y-2">
                   {navLinks.map((link) => (
                     <button
                       key={link.href}
+                      type="button"
                       onClick={() => handleNavClick(link.href)}
                       className="w-full text-right py-3 px-4 rounded-lg text-[#1c1c19] hover:bg-[#f1ede8] font-sans-luxury text-base font-medium transition-colors flex items-center justify-between group"
                     >
@@ -203,7 +203,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                     </button>
                   ))}
 
-                </div>
+                </nav>
 
                 {/* Venue Quick Info Box */}
                 <div className="bg-[#f7f3ee] p-4 rounded-xl border border-[#322206]/15 space-y-3 mb-6">
@@ -214,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Sparkles className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>600 מ״ר | כשר למהדרין | עד 150 איש | נגישות מלאה</span>
+                    <span>600 מ״ר | כשר למהדרין | עד 150 איש | הסדרי נגישות</span>
                   </div>
                 </div>
               </div>
@@ -222,6 +222,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
               {/* Bottom Drawer Actions */}
               <div className="space-y-3 pt-4 border-t border-[#18281e]/10">
                 <button
+                  type="button"
                   onClick={() => {
                     setIsMobileDrawerOpen(false);
                     onOpenBooking();

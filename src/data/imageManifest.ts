@@ -192,7 +192,7 @@ export function getContentImage(slug: string): ImageVariantSet {
 }
 
 export function getHeroPoster(): ImageVariantSet {
-  return buildSet('rooftop-drone-poster', 960);
+  return buildSet('rooftop-sunset-stage', 1000);
 }
 
 export const IMAGE_SLUGS = Object.keys(MANIFEST);

@@ -3,12 +3,14 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { MobileBottomNav } from './components/MobileBottomNav';
+import { SkipToContent } from './components/SkipToContent';
 import { EventType, GalleryImage } from './types';
 import { MessageCircle } from 'lucide-react';
 
 const Experience = lazy(() => import('./components/Experience').then((m) => ({ default: m.Experience })));
 const EventTypes = lazy(() => import('./components/EventTypes').then((m) => ({ default: m.EventTypes })));
 const Culinary = lazy(() => import('./components/Culinary').then((m) => ({ default: m.Culinary })));
+const StageContent = lazy(() => import('./components/StageContent').then((m) => ({ default: m.StageContent })));
 const Gallery = lazy(() => import('./components/Gallery').then((m) => ({ default: m.Gallery })));
 const ContactForm = lazy(() => import('./components/ContactForm').then((m) => ({ default: m.ContactForm })));
 const FaqSection = lazy(() => import('./components/FaqSection').then((m) => ({ default: m.FaqSection })));
@@ -95,9 +97,10 @@ export default function App() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#fdf9f4] text-[#1c1c19] flex flex-col antialiased selection:bg-[#fcdeb5] selection:text-[#271901] text-right">
+      <SkipToContent />
       <Header onOpenBooking={() => scrollToSection('contact')} />
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         <Hero onCheckAvailability={() => scrollToSection('contact')} />
 
         <Suspense fallback={<SectionFallback id="venue" minHeight="min-h-[480px]" />}>
@@ -110,6 +113,10 @@ export default function App() {
 
         <Suspense fallback={<SectionFallback id="culinary" minHeight="min-h-[480px]" />}>
           <Culinary />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback id="stage" minHeight="min-h-[480px]" />}>
+          <StageContent />
         </Suspense>
 
         <Suspense fallback={<SectionFallback id="gallery" minHeight="min-h-[640px]" />}>

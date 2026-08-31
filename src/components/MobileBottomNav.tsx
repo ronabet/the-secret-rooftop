@@ -44,14 +44,16 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         return (
           <button
             key={item.id}
+            type="button"
             onClick={() => onNavigate(item.id)}
+            aria-current={isActive ? 'page' : undefined}
             className={`flex flex-col items-center justify-center flex-1 py-1.5 transition-all duration-300 cursor-pointer ${
               isActive
                 ? 'text-[#924a29] font-bold scale-105 -translate-y-0.5'
                 : 'text-[#434844]/70 hover:text-[#18281e]'
             }`}
           >
-            <Icon className={`mb-0.5 w-6 h-6 ${isActive ? 'text-[#924a29]' : ''}`} />
+            <Icon className={`mb-0.5 w-6 h-6 ${isActive ? 'text-[#924a29]' : ''}`} aria-hidden="true" />
             <span className="leading-tight text-[10px] tracking-wide">{item.label}</span>
           </button>
         );
