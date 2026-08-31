@@ -214,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#434844]">
                     <Sparkles className="w-4 h-4 text-[#924a29] shrink-0 mt-0.5" />
-                    <span>600 מ״ר | כשר למהדרין | עד 150 איש | נגישות מלאה</span>
+                    <span>600 מ״ר | כשר למהדרין | עד 150 איש | הסדרי נגישות</span>
                   </div>
                 </div>
               </div>
