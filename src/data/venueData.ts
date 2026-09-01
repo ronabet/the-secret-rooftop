@@ -22,9 +22,11 @@ export const HERO_POSTER = getHeroPoster();
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    id: 'hero-sunset',
-    kind: 'image',
-    image: HERO_POSTER,
+    id: 'hero-aerial',
+    kind: 'video',
+    poster: HERO_POSTER,
+    mp4Src: '/hero/rooftop-drone.mp4',
+    webmSrc: '/hero/rooftop-drone.webm',
     title: 'THE SECRET ROOFTOP',
     subtitle: 'מבט מהגג — נוף פתוח 360° אל העיר, שקיעות קסומות ואירועי בוטיק בלב אשדוד',
   },

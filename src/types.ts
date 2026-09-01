@@ -44,4 +44,14 @@ export type HeroImageSlide = {
   subtitle: string;
 };
 
-export type HeroSlide = HeroImageSlide;
+export type HeroVideoSlide = {
+  id: string;
+  kind: 'video';
+  poster: ImageVariantSet;
+  mp4Src: string;
+  webmSrc: string;
+  title: string;
+  subtitle: string;
+};
+
+export type HeroSlide = HeroImageSlide | HeroVideoSlide;

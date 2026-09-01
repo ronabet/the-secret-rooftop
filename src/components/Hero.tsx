@@ -9,8 +9,44 @@ interface HeroProps {
   onCheckAvailability: () => void;
 }
 
+const mediaClassName =
+  'absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] hero-slide-enter';
+
 const HeroBackground: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
-  const isLcp = slide.id === 'hero-sunset';
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isLcp = slide.id === 'hero-aerial';
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || slide.kind !== 'video') return;
+
+    void video.play().catch(() => {
+      // Autoplay may be blocked until user interaction.
+    });
+
+    return () => {
+      video.pause();
+    };
+  }, [slide]);
+
+  if (slide.kind === 'video') {
+    return (
+      <video
+        ref={videoRef}
+        key={slide.id}
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster={slide.poster.src}
+        className={mediaClassName}
+        aria-label="הגג הסודי — נוף מהרופטופ"
+      >
+        <source src={slide.mp4Src} type="video/mp4" />
+        <source src={slide.webmSrc} type="video/webm" />
+      </video>
+    );
+  }
 
   return (
     <ResponsiveImage
@@ -18,7 +54,7 @@ const HeroBackground: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
       image={slide.image}
       alt={slide.subtitle}
       sizes="100vw"
-      className="absolute inset-0 w-full h-full object-cover object-center brightness-110 contrast-[1.02] hero-slide-enter"
+      className={mediaClassName}
       loading={isLcp ? 'eager' : 'lazy'}
       fetchPriority={isLcp ? 'high' : 'auto'}
     />
@@ -55,10 +91,12 @@ export const Hero: React.FC<HeroProps> = ({ onCheckAvailability }) => {
 
   useEffect(() => {
     const nextSlide = HERO_SLIDES[(currentSlide + 1) % HERO_SLIDES.length];
-    const img = new Image();
-    img.src = nextSlide.image.src;
-    if (nextSlide.image.srcSet) {
-      img.srcset = nextSlide.image.srcSet;
+    if (nextSlide.kind === 'image') {
+      const img = new Image();
+      img.src = nextSlide.image.src;
+      if (nextSlide.image.srcSet) {
+        img.srcset = nextSlide.image.srcSet;
+      }
     }
   }, [currentSlide]);
 

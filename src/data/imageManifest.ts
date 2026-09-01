@@ -161,8 +161,8 @@ const MANIFEST: Record<string, ManifestEntry> = {
       640,
       960
     ],
-    "width": 900,
-    "height": 1350
+    "width": 960,
+    "height": 1707
   }
 };
 
