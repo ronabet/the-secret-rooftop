@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Music, Mic2 } from 'lucide-react';
+import { Music } from 'lucide-react';
 import { VENUE_IMAGES } from '../data/venueData';
 import { ResponsiveImage } from './ResponsiveImage';
 
@@ -50,40 +50,18 @@ export const StageContent: React.FC = () => {
           </div>
 
           <div className="w-full md:w-1/2">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <div className="relative rounded-xl overflow-hidden shadow-md group">
-                  <ResponsiveImage
-                    image={VENUE_IMAGES.corporate}
-                    alt="הבמה במתחם הגג הסודי"
-                    sizes="(max-width: 768px) 50vw, 280px"
-                    className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
-                </div>
-                <p className="text-[11px] text-[#434844] text-right font-sans-luxury font-light">
-                  במה עם הגברה, תאורה ונוף פתוח — מוכנה לנאומים והופעות
-                </p>
-              </div>
-
-              <div className="space-y-2 mt-6 sm:mt-10">
-                <div className="relative rounded-xl overflow-hidden shadow-md group">
-                  <ResponsiveImage
-                    image={VENUE_IMAGES.djBooth}
-                    alt="עמדת DJ במתחם הגג הסודי"
-                    sizes="(max-width: 768px) 50vw, 280px"
-                    className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
-                  <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm p-1.5 rounded-full border border-white/20">
-                    <Mic2 className="w-3.5 h-3.5 text-[#fcdeb5]" />
-                  </div>
-                </div>
-                <p className="text-[11px] text-[#434844] text-right font-sans-luxury font-light">
-                  DJ, הרכבים חיים ותוכן מוזיקלי — לפי סגנון האירוע
-                </p>
-              </div>
+            <div className="relative rounded-xl overflow-hidden shadow-md group max-w-md md:max-w-none md:ms-auto">
+              <ResponsiveImage
+                image={VENUE_IMAGES.corporate}
+                alt="הבמה במתחם הגג הסודי"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="w-full h-56 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 border border-[#322206]/20 rounded-xl pointer-events-none" />
             </div>
+            <p className="mt-2 text-[11px] text-[#434844] text-right font-sans-luxury font-light">
+              במה עם הגברה, תאורה ונוף פתוח — מוכנה לנאומים והופעות
+            </p>
           </div>
         </motion.div>
       </div>

@@ -12,7 +12,6 @@ export const VENUE_IMAGES = {
   signage: getContentImage('rooftop-signage'),
   barVanDay: getContentImage('bar-van-day'),
   barVanEvening: getContentImage('bar-van-evening'),
-  djBooth: getContentImage('dj-booth'),
   tableStringLights: getContentImage('table-string-lights'),
   tableLoungeCushions: getContentImage('table-lounge-cushions'),
   pizzaSlice: getContentImage('pizza-slice'),
@@ -184,13 +183,6 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     title: 'הבר תחת הצללית',
     category: 'events',
     description: 'אזור הבר המקורה עם עמדות הגשה, צמחייה ותאורת מחרוזות',
-  },
-  {
-    id: 'g-9',
-    image: VENUE_IMAGES.djBooth,
-    title: 'עמדת הדיג׳יי',
-    category: 'events',
-    description: 'עמדת מיקס בחלון הוואן - מוזיקה חיה לאורך כל הערב',
   },
   {
     id: 'g-10',
