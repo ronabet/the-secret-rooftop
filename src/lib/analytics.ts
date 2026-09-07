@@ -20,7 +20,8 @@ declare global {
   }
 }
 
-const GTM_ID = (import.meta.env.VITE_GTM_ID as string | undefined)?.trim() || '';
+const GTM_ID =
+  (import.meta.env.VITE_GTM_ID as string | undefined)?.trim() || 'GTM-MBLWPDXJ';
 const GA4_ID = (import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined)?.trim() || '';
 const ADS_ID = (import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined)?.trim() || '';
 const ADS_LEAD = (import.meta.env.VITE_ADS_CONVERSION_LEAD as string | undefined)?.trim() || '';
@@ -101,11 +102,17 @@ export function initAnalytics() {
   window.dataLayer = window.dataLayer || [];
 
   if (GTM_ID) {
-    window.dataLayer.push({
-      'gtm.start': Date.now(),
-      event: 'gtm.js',
-    });
-    loadScript(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(GTM_ID)}`);
+    // Official snippet may already be in index.html — never load GTM twice.
+    const alreadyLoaded = Boolean(
+      document.querySelector(`script[src*="googletagmanager.com/gtm.js?id=${GTM_ID}"]`)
+    );
+    if (!alreadyLoaded) {
+      window.dataLayer.push({
+        'gtm.start': Date.now(),
+        event: 'gtm.js',
+      });
+      loadScript(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(GTM_ID)}`);
+    }
     return;
   }
 
