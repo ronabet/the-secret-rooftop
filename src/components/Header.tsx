@@ -131,6 +131,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
             {/* Direct Phone / Contact quick action */}
             <a
               href="tel:0522957958"
+              data-track-location="header"
               className="hidden sm:flex items-center gap-1.5 text-xs text-[#18281e] hover:text-[#924a29] transition-colors py-1.5 px-3 rounded border border-[#18281e]/15 font-sans-luxury"
             >
               <Phone className="w-3.5 h-3.5 text-[#924a29]" />
@@ -237,6 +238,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
                   href="https://wa.me/972522957958?text=שלום%2C%20אשמח%20לקבל%20פרטים%20על%20אירוע%20בגג%20הסודי"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-track-location="drawer"
                   className="w-full bg-[#25D366]/15 text-[#18281e] hover:bg-[#25D366]/25 border border-[#25D366]/30 py-3 rounded-lg font-sans-luxury font-medium text-xs sm:text-sm transition-colors flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366]" />

@@ -85,7 +85,11 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
             <strong>רכז/ת נגישות:</strong> {coordinator.name}
             <br />
             <strong>טלפון:</strong>{' '}
-            <a href={coordinator.phoneHref} className="text-[#924a29] hover:underline font-medium">
+            <a
+              href={coordinator.phoneHref}
+              data-track="false"
+              className="text-[#924a29] hover:underline font-medium"
+            >
               {coordinator.phone}
             </a>
             <br />
@@ -94,6 +98,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ type, onClose }) => {
               href={coordinator.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="false"
               className="text-[#924a29] hover:underline font-medium"
             >
               שליחת פנייה בנושא נגישות

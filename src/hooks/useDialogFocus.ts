@@ -15,9 +15,10 @@ export function useDialogFocus(isOpen: boolean, onClose: () => void) {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    const getFocusable = () =>
-      Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
-        (el) => !el.hasAttribute('disabled') && el.offsetParent !== null
+    const getFocusable = (): HTMLElement[] =>
+      Array.from(dialog.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+        (node): node is HTMLElement =>
+          node instanceof HTMLElement && !node.hasAttribute('disabled') && node.offsetParent !== null
       );
 
     const focusFirst = () => {
