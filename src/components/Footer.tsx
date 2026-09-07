@@ -47,6 +47,7 @@ export const Footer: React.FC<FooterProps> = ({
         <a
           href="tel:0522957958"
           aria-label="טלפון"
+          data-track-location="footer"
           className="w-9 h-9 rounded-full bg-[#fdf9f4] border border-[#18281e]/15 flex items-center justify-center hover:text-[#924a29] hover:border-[#924a29] transition-colors"
         >
           <Phone className="w-4 h-4" />

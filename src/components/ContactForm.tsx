@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Send, CheckCircle2, MessageCircle, Phone, Sparkles, Calendar, Users, Navigation } from 'lucide-react';
 import { BookingFormData } from '../types';
 import { VENUE_ADDRESS } from '../data/venueData';
+import { trackGenerateLead } from '../lib/analytics';
 
 interface ContactFormProps {
   preselectedEventType?: string;
@@ -99,6 +100,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
       alert('נא למלא שם מלא ומספר טלפון תקין');
       return;
     }
+
+    // Primary lead conversion only — do NOT also fire whatsapp_click here.
+    // Form opens WhatsApp via window.open (not an <a> click), so the outbound
+    // click listener will not double-count this as a raw WhatsApp tap.
+    trackGenerateLead({
+      location: 'contact_form',
+      eventType: formData.eventType || undefined,
+      guestCount: formData.guestCount,
+    });
 
     const whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${getWhatsAppMessage()}`;
 
@@ -355,6 +365,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedEventType }
                     href={`https://wa.me/${OWNER_WHATSAPP}?text=${getWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track-location="form_success"
                     className="bg-[#25D366] text-white px-6 py-3 rounded-lg font-sans-luxury text-sm font-semibold hover:bg-[#20b858] transition-colors flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4" />

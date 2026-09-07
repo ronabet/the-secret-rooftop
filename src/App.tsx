@@ -155,6 +155,7 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="צ'אט בוואטסאפ"
+        data-track-location="floating"
         className="fixed bottom-22 md:bottom-6 left-5 z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group"
       >
         <MessageCircle className="w-6 h-6 fill-current" />
